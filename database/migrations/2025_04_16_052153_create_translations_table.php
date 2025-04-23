@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('key_id')->constrained('translation_keys')->cascadeOnDelete();
             $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
             $table->foreignId('language_id')->constrained('languages')->cascadeOnDelete();
+            $table->boolean("skipped")->default(false);
             $table->text('value');
             $table->timestamps();
         });

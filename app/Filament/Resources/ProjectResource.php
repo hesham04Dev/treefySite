@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers;
+use App\Forms\ProjectForm;
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -26,19 +27,20 @@ class ProjectResource extends Resource
                 Forms\Components\TextInput::make('user_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('desc')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('points_per_word')
-                    ->required()
-                    ->numeric()
-                    ->default(1),
-                Forms\Components\TextInput::make('verification_no')
-                    ->required()
-                    ->numeric()
-                    ->default(2),
+                ...ProjectForm::make(),
+                // Forms\Components\TextInput::make('name')
+                //     ->required()
+                //     ->maxLength(255),
+                // Forms\Components\Textarea::make('desc')
+                //     ->columnSpanFull(),
+                // Forms\Components\TextInput::make('points_per_word')
+                //     ->required()
+                //     ->numeric()
+                //     ->default(1),
+                // Forms\Components\TextInput::make('verification_no')
+                //     ->required()
+                //     ->numeric()
+                //     ->default(2),
             ]);
     }
 

@@ -20,9 +20,14 @@ Route::get('/home', function () {
 Route::middleware(['auth', EnsureUserIsTranslator::class])->group(function () {
     // Translator-only routes
     Route::get('/translator/dashboard', [TranslatorController::class, 'view_dashboard']);
+    Route::get('translations/verification/{project_id}', [TranslatorController::class, 'view_verification']);
+    Route::get('translations/verification', [TranslatorController::class, 'view_verification']);
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get("/add_project",function () {
+        return view('publisher.addProject');
+    });
     Route::get("/dashboard",[DashboardController::class,"view_dashboard"]);
     Route::get("/user/fill_missing_data",[UserController::class,"view_fill_missing_data"]);
 });

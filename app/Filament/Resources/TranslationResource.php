@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,20 +43,33 @@ class TranslationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('key_id')
-                    ->numeric()
+                TextColumn::make('project.name') // ✅ this accesses the project name
+                    ->label('Project')
+                    ->wrap()
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('project_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('language_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('key.value') // ✅ this accesses the key from translation
+                    ->label('Key')
+                    ->wrap()
+                    ->searchable()->sortable(),
+    
+                TextColumn::make('language.name') // ✅ correct nested relation
+                    ->label('Language')
+                    ->wrap()
+                    ->searchable()->sortable(),
+    
+                TextColumn::make('value') // ✅ directly from translation
+                    ->label('Translation')
+                    ->wrap()
+                    ->searchable()->sortable(),
+    
+              
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+    
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

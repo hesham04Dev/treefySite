@@ -14,20 +14,24 @@ class TranslatorForm
     {
         $prefix = "";
         if ($isEmbedded) {
-            $prefix = "user.";
+            $prefix = "translator.";
         }
         $langs = Select::make('translator_id')
+            ->label('Languages')
             ->searchable()
             ->preload()
             ->multiple()
-            ->required();
+            ->required()
+            ->options(
+                \App\Models\Language::pluck('code', 'id') // adjust as needed
+            )->reactive();
         if ($for_admin) {
             $langs->createOptionForm(LangForm::make())
                 ->relationship('languages', 'code');
         } else {
-            $langs->options(
-                \App\Models\Language::pluck('code', 'id') // adjust as needed
-            )->reactive();
+            // $langs->options(
+            //     \App\Models\Language::pluck('code', 'id') // adjust as needed
+            // )->reactive();
         }
         return [
             $langs,

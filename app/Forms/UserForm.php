@@ -21,7 +21,7 @@ class UserForm
                 ->label('Email')
                 ->email()
                 ->required()
-                ->unique('users', 'email'),
+                ->unique('users', 'email',ignoreRecord: true,),
 
             TextInput::make("{$prefix}password")
                 ->password()

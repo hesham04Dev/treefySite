@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('translations_id')->constrained('translations')->cascadeOnDelete();
             $table->boolean('is_correct');
             $table->timestamps();
+            $table->unique(['translator_id', 'translations_id']);
         });
         
     }

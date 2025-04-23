@@ -1,5 +1,5 @@
 <?php
-
+// TO REMOVe
 namespace App\Filament\Pages;
 
 use App\Forms\TranslatorForm;
