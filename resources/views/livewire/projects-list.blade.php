@@ -11,8 +11,9 @@
 
     <ul class="space-y-2">
         @foreach($projects as $project)
-            <li class="p-3 bg-gray-100 rounded hover:bg-gray-200 transition">
-                {{ $project->name }}
+            <li class="p-3 bg-gray-100 rounded hover:bg-gray-200 transition flex content-center justify-between">
+               <div> {{ $project->name }}</div>
+               <x-project.btns :projectId="$project->id"/>
             </li>
         @endforeach
     </ul>

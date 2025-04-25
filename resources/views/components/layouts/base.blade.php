@@ -1,5 +1,9 @@
 <x-layouts.app>
-    <x-parts.header></x-parts.header>
-    {{ $slot }}
-    <x-parts.footer></x-parts.footer>
+    <div class="flex flex-col min-h-screen">
+        <x-parts.header />
+        <div class="flex-grow">
+            {{ $slot }}
+        </div>
+        <x-parts.footer />
+    </div>
 </x-layouts.app>

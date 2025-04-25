@@ -53,3 +53,73 @@
 - [ ] works on getting points from the user take points for each words so we need to edit the query if project is normal so we need to check if the user have points for each one
 - [ ] 
 Publisher  , Translator
+publisher -> project manager
+
+
+
+# This Page is TODO AND SOME DESC BEFORE ADDING THEM TO THE README
+
+## nav
+ [x] add login/ logout 
+
+## Dashboard
+ ### Admin Dashboard
+    [ ] add todos
+ ### project_manager dashboard
+    [ ] works on design 
+    [ ] improve pagination design
+ ### translator dashboard
+    [ ] works on design 
+    [ ] improve pagination design
+
+## User
+ [ ] add default lang
+
+
+## Main Pages
+    [ ] build home page
+    [ ] build terms and conditions
+    [ ] build about us page
+    [ ] build profile page
+    [ ] build projects page (translator can enroll)
+
+## Main fixes
+    [ ] fix footer always in bottom
+    [ ] fix footer content
+    [ ] why there is lag
+
+## Verification Page
+    [ ] add points to verifier
+    [ ] shows more than one lang 
+    [ ] update the query remove projects where the user dont have enogh points
+    [ ] case study (multi project with small amount of money what happens?)
+    [x] make when click in a project that enrolled to get trans of this project
+    [x] improve page speed and fix bug(in pageination)
+    [x] prevent the user from verify the same translation more than one time
+    [x] fix error 
+
+## Add Project
+    [ ] improve the design 
+    [x] if lang not found add it
+    [ ] add edit to project
+    [ ] on edit dont re add what is in only if it empty
+    [ ] add btn to stop project add it in db and update query
+
+
+## profile page
+    [ ] when translator update his translations we need to verify them 
+    or add request add lang
+
+
+## fill missing data page
+    [x] move from filament to livewire
+    [ ] 
+
+## Verified translation page 
+    [ ] Create the page
+    [ ] works on its logic should have api to get trans in user default lang
+    [ ] make the user select the verification (when selected it update the trans table and sit it with skipped)
+
+## billing page
+    [ ] purchase points and withdraw points
+

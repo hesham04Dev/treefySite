@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->string('level')->default(1);
             $table->integer('exp')->default(0);
+
+            $table->primary(['user_id']);
         });
         
     }

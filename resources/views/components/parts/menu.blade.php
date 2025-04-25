@@ -4,6 +4,14 @@ $menu = [
   ["name" => "Profile", "href" => "/profile"],
   ["name" => "Projects", "href" => "/projects"],
 ];
+
+if(Auth::check()){
+  $menu[] = ["name" => "Logout", "href" => "/logout"];
+} else {
+  // hide everything else
+  $menu= [["name" => "Login", "href" => "/login"],
+  ["name" => "Register", "href" => "/signup"]];
+}
 ?>
 <!-- Burger Button (Mobile) -->
 <button class="md:hidden text-gray-700 focus:outline-none" @click="open = !open" >

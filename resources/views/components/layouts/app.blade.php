@@ -16,7 +16,7 @@
         }
     </style>
 
-    @filamentStyles
+    {{-- @filamentStyles --}}
     @livewireStyles
     @vite('resources/css/app.css')
    
@@ -26,7 +26,7 @@
 <body class="antialiased">
     {{ $slot }}
 
-    @filamentScripts
+    {{-- @filamentScripts --}}
     @livewireScripts
     @vite('resources/js/app.js')
     

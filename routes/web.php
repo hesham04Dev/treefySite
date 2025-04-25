@@ -20,16 +20,23 @@ Route::get('/home', function () {
 Route::middleware(['auth', EnsureUserIsTranslator::class])->group(function () {
     // Translator-only routes
     Route::get('/translator/dashboard', [TranslatorController::class, 'view_dashboard']);
-    Route::get('translations/verification/{project_id}', [TranslatorController::class, 'view_verification']);
+    Route::get('translations/verification/{project_id}', [TranslatorController::class, 'view_verification'])->name('project.verify');
     Route::get('translations/verification', [TranslatorController::class, 'view_verification']);
 });
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get("/add_project",function () {
         return view('publisher.addProject');
     });
-    Route::get("/dashboard",[DashboardController::class,"view_dashboard"]);
+    Route::get("/project", function () {
+        return view('publisher.addProject');})->name("project");
+    Route::get("/dashboard",[DashboardController::class,"view_dashboard"])->name("dashboard");
     Route::get("/user/fill_missing_data",[UserController::class,"view_fill_missing_data"]);
+    Route::get('/projects', function () {
+        return view('publisher.projects');
+    })->name("projects");
 });
 
 Route::middleware(['auth',EnsureUserIsNotTranslator::class])->group(function () {
@@ -41,6 +48,7 @@ Route::middleware(['auth',EnsureUserIsNotTranslator::class])->group(function () 
 
 
 // auth part
+Route::get('logout',[AuthController::class, 'logout'])->name("logout");
 Route::get('login',[AuthController::class, 'view_signin'])->name("login");
 Route::post('login',[AuthController::class, 'signin']);
 Route::get('signup',[AuthController::class, 'view_signup']);

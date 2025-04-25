@@ -13,6 +13,30 @@ class ProjectsList extends Component
     use WithPagination;
 
     public ?int $userId = null;
+    public ?int $limit=2;
+
+
+    protected $listeners = ['enroll', 'unEnroll', 'startVerification'];
+
+    public function enroll($projectId)
+    {
+        // enroll logic here
+        auth()->user()->translator->enrolledProjects()->attach($projectId);
+        session()->flash('success', 'Enrolled in project successfully.');
+    }
+
+    public function unEnroll($projectId)
+    {
+        // unenroll logic
+        auth()->user()->translator->enrolledProjects()->detach($projectId);
+        session()->flash('success', 'Unenrolled from project successfully.');
+    }
+
+    public function startVerification($projectId)
+    {
+        // redirect or show verification UI
+        return redirect()->route('project.verify', $projectId);
+    }
 
     public function render()
     {
@@ -32,9 +56,11 @@ class ProjectsList extends Component
                 $data["href"]  = "/add_project";
                 $projectsQuery = $user->projects();
             }
+        }else{
+            // $projectsQuery = Project::all;
         }
 
-        $projects = $projectsQuery->paginate(2); // Adjust the per-page value as needed
+        $projects = $projectsQuery->paginate($this->limit); // Adjust the per-page value as needed
 
         return view('livewire.projects-list', compact('projects', 'data'));
     }

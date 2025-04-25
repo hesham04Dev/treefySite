@@ -44,6 +44,9 @@ class User extends Authenticatable
     public function projects(){
         return $this->hasMany(Project::class);
     }
+    public function ownProject($projectId){
+        return $this->projects()->where('id',$projectId)->exists();
+    }
 
     /**
      * Get the attributes that should be cast.

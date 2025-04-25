@@ -1,5 +1,5 @@
 <x-layouts.base>
-     {{-- <livewire:add-missing-data/> --}}
-     @livewire(App\Filament\Pages\FillMissingData::class)
+     <livewire:fill-missing-data/>
+     {{-- @livewire(App\Filament\Pages\FillMissingData::class) --}}
      
 </x-layouts.base>
