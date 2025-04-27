@@ -10,9 +10,13 @@ class Verification extends Model {
 
 
     public function translation(){
-        return $this->belongsTo(Translation::class, 'translations_id');
+        return $this->belongsTo(Translation::class, 'translation_id');
     }
     public function translator(){
         return $this->belongsTo(Translator::class, 'translator_id');
+    }
+
+    public function updatedTranslation(){
+        return $this->hasOne(UpdatedTranslation::class);
     }
 }

@@ -56,8 +56,6 @@ class ProjectsList extends Component
                 $data["href"]  = "/add_project";
                 $projectsQuery = $user->projects();
             }
-        }else{
-            // $projectsQuery = Project::all;
         }
 
         $projects = $projectsQuery->paginate($this->limit); // Adjust the per-page value as needed

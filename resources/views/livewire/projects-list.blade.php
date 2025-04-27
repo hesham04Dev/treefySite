@@ -11,8 +11,8 @@
 
     <ul class="space-y-2">
         @foreach($projects as $project)
-            <li class="p-3 bg-gray-100 rounded hover:bg-gray-200 transition flex content-center justify-between">
-               <div> {{ $project->name }}</div>
+            <li wire:key="translation-{{$project->id}}" class="p-3 bg-gray-100 rounded hover:bg-gray-200 transition flex content-center justify-between">
+               <div> {{ $project->name }} {{$project->getPercentage()}}%</div>
                <x-project.btns :projectId="$project->id"/>
             </li>
         @endforeach

@@ -43,4 +43,6 @@ class UserController extends Controller
         // Optionally, you could redirect the user after the process is complete
         return redirect('/dashboard');
     }
+
+    
 }

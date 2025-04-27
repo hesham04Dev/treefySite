@@ -44,7 +44,7 @@ translation_keys(id, value, created_at, updated_at)
 
 translations(id, key_id -> translation_keys.id, project_id -> projects.id, language_id -> languages.id, value, created_at, updated_at,active_translators,skipped)
 
-verifications(id, translator_id -> translators.user_id, translations_id -> translations.id, is_correct, created_at, updated_at)
+verifications(id, translator_id -> translators.user_id, translation_id -> translations.id, is_correct, created_at, updated_at)
 
 updated_translations(verification_id -> verifications.id, value, created_at, updated_at)
 

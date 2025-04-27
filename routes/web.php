@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TranslatorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects', function () {
         return view('publisher.projects');
     })->name("projects");
+
+    Route::get('/project/verifications/{project_id}', [ProjectController::class, 'view_Verification'])->name("projectVerifications");
 });
 
 Route::middleware(['auth',EnsureUserIsNotTranslator::class])->group(function () {

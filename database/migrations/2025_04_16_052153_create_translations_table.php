@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
             $table->foreignId('language_id')->constrained('languages')->cascadeOnDelete();
             $table->boolean("skipped")->default(false);
+            $table->boolean("is_done")->default(false);
             $table->text('value');
             $table->timestamps();
         });

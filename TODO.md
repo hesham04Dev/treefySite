@@ -62,6 +62,9 @@ publisher -> project manager
 ## nav
  [x] add login/ logout 
 
+## project list
+[ ] add search
+
 ## Dashboard
  ### Admin Dashboard
     [ ] add todos
@@ -73,23 +76,33 @@ publisher -> project manager
     [ ] improve pagination design
 
 ## User
- [ ] add default lang
+ [x] add default lang
+
+## Translator
+ [ ] work on level next level methodlogy like achivement box  
 
 
 ## Main Pages
-    [ ] build home page
+    [ ] build home page like longchain 
     [ ] build terms and conditions
     [ ] build about us page
     [ ] build profile page
     [ ] build projects page (translator can enroll)
 
 ## Main fixes
-    [ ] fix footer always in bottom
+    [x] fix footer always in bottom
     [ ] fix footer content
-    [ ] why there is lag
+    [x] why there is lag (error in pagination)
+
+## Main add
+    [ ] allow translator to add projects
+    [ ] add transaction table for points
+    
+
 
 ## Verification Page
     [ ] add points to verifier
+    [ ] add level to verifier
     [ ] shows more than one lang 
     [ ] update the query remove projects where the user dont have enogh points
     [ ] case study (multi project with small amount of money what happens?)
@@ -97,6 +110,8 @@ publisher -> project manager
     [x] improve page speed and fix bug(in pageination)
     [x] prevent the user from verify the same translation more than one time
     [x] fix error 
+    [ ] when have only one verifier so in verification is_selected = 1
+
 
 ## Add Project
     [ ] improve the design 
@@ -104,6 +119,7 @@ publisher -> project manager
     [ ] add edit to project
     [ ] on edit dont re add what is in only if it empty
     [ ] add btn to stop project add it in db and update query
+    [ ] make the admin able to disable a project and user cant un disable it
 
 
 ## profile page
@@ -116,9 +132,13 @@ publisher -> project manager
     [ ] 
 
 ## Verified translation page 
-    [ ] Create the page
+    [x] Create the page
     [ ] works on its logic should have api to get trans in user default lang
-    [ ] make the user select the verification (when selected it update the trans table and sit it with skipped)
+    [x] make the user select the verification (when selected it update the trans table and sit it with skipped)
+    [ ] add filter for not selected 
+    [ ] make this page for projects that have more than 1 verification / word
+    [ ] in verification if all trans give the same value dont show it and select any one 
+    and make it done
 
 ## billing page
     [ ] purchase points and withdraw points

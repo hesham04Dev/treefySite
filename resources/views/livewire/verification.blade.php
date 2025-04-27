@@ -1,7 +1,5 @@
 <div class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
     <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md text-center">
-        <p class="mt-4 text-sm text-gray-400">Current Index: {{ $currentIndex }}</p>
-
         @if ($translation)
         <div wire:key="translation-{{ $translation->id }}">
             <h2 class="text-xl font-bold text-gray-800 mb-4">{{ $translation->key }}</h2>

@@ -38,14 +38,14 @@ class VerificationResource extends Resource
                 // Forms\Components\TextInput::make('translator_id')
                 //     ->required()
                 //     ->numeric(),
-                Select::make("translations_id")
+                Select::make("translation_id")
                     ->relationship('translations', 'value')
                     ->options(Translation::all()->pluck('value', 'id'))
                     ->label("Translator")
                     ->searchable()
                     // ->preload()
                     ->required(),
-                // Forms\Components\TextInput::make('translations_id')
+                // Forms\Components\TextInput::make('translation_id')
                 //     ->required()
                 //     ->numeric(),
                 Forms\Components\Toggle::make('is_correct')

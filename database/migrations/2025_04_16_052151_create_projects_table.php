@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->integer('points_per_word')->default(1);
             $table->integer('verification_no')->default(2);
+            $table->boolean("is_disabled")->default(false);
             $table->timestamps();
         });
         

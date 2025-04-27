@@ -22,4 +22,8 @@ class Translation extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function verifications(){
+        return $this->hasMany(Verification::class);
+    }
 }

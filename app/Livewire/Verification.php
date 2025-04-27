@@ -68,7 +68,7 @@ class Verification extends Component
     {
         $verification = \App\Models\Verification::create([
             'translator_id' => auth()->user()->id,
-            'translations_id' => $translationId,
+            'translation_id' => $translationId,
             'is_correct' => $this->editableTranslation == $this->translation->value,
         ]);
         $this->_setUpdatedTranslation($verification->id);

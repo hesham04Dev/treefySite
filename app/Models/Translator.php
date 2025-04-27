@@ -58,13 +58,13 @@ class Translator extends Model
             ->join('translations as t', 't.key_id', '=', 'tk.id')
             ->join('projects as p', 't.project_id', '=', 'p.id')
             ->join('languages as l', 'l.id', '=', 't.language_id')
-            ->leftJoin('verifications as v', 'v.translations_id', '=', 't.id')
+            ->leftJoin('verifications as v', 'v.translation_id', '=', 't.id')
 
             // ❌ Exclude translations already verified by this translator
             ->whereNotExists(function ($query) use ($translatorId) {
                 $query->select(DB::raw(1))
                     ->from('verifications')
-                    ->whereColumn('verifications.translations_id', 't.id')
+                    ->whereColumn('verifications.translation_id', 't.id')
                     ->where('verifications.translator_id', $translatorId);
             })
 
@@ -108,7 +108,6 @@ class Translator extends Model
                 'tk.value',
                 'p.id',
                 'p.verification_no',
-                't.active_translators',
                 'l.name',
                 't.value'
             )
@@ -126,13 +125,13 @@ class Translator extends Model
     //         ->join('translations as t', 't.key_id', '=', 'tk.id')
     //         ->join('projects as p', 't.project_id', '=', 'p.id')
     //         ->join('languages as l', 'l.id', '=', 't.language_id')
-    //         ->leftJoin('verifications as v', 'v.translations_id', '=', 't.id')
+    //         ->leftJoin('verifications as v', 'v.translation_id', '=', 't.id')
 
     //         // ❌ Exclude translations already verified by this translator
     //         ->whereNotExists(function ($query) use ($translatorId) {
     //             $query->select(DB::raw(1))
     //                 ->from('verifications')
-    //                 ->whereColumn('verifications.translations_id', 't.id')
+    //                 ->whereColumn('verifications.translation_id', 't.id')
     //                 ->where('verifications.translator_id', $translatorId);
     //         })
 

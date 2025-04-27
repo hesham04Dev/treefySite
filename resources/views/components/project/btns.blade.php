@@ -7,6 +7,9 @@
             class="px-3 py-1 text-sm text-white bg-yellow-500 rounded hover:bg-yellow-600 transition">
             Edit
         </a>
+        <a href="{{ route('projectVerifications', $projectId) }}">
+            View Verifications
+        </a>
     @elseif($user->isTranslator())
         @if($user->translator->isEnrolled($projectId))
             <button wire:click="unEnroll({{ $projectId }})"
