@@ -1,7 +1,8 @@
 <div class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
     <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md text-center">
-        @if ($translation)
+        @if ($translation && $translation !=null)
         <div wire:key="translation-{{ $translation->id }}">
+            <h3>project name: {{$project->name}}</h3>
             <h2 class="text-xl font-bold text-gray-800 mb-4">{{ $translation->key }}</h2>
 
             <div class="mb-4">

@@ -29,7 +29,7 @@ class Project extends Model {
         
         $verified = $this->verifications()->count();
         // $verified = 0;
-        
+        // return "$total - $verified";
         return($total > 0) ?  round(($verified / $total) * 100) : 0;
     }
 

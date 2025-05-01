@@ -8,7 +8,7 @@
             </div>
 
             <div class="md:w-1/5">
-                <x-common.points :points="$points"/>
+                <x-common.points :points="$user->points"/>
             </div>
         </div>
 

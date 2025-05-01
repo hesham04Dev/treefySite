@@ -16,9 +16,9 @@ class DashboardController extends Controller
         }
 
         $user = auth()->user();
-        $points = 0;
+        // $points = 0;
 
-        return view('publisher.dashboard',compact("user","points"));
+        return view('publisher.dashboard',compact("user",));
     }
 
     private function check_is_new_user()

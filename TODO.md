@@ -68,6 +68,10 @@ publisher -> project manager
 ## Dashboard
  ### Admin Dashboard
     [ ] add todos
+    [ ] prevent access to admin paned from non admin (create ensure is admin or something)
+    [ ] add accept translator 
+    [ ] add accept language update
+    [ ] 
  ### project_manager dashboard
     [ ] works on design 
     [ ] improve pagination design
@@ -93,18 +97,21 @@ publisher -> project manager
     [x] fix footer always in bottom
     [ ] fix footer content
     [x] why there is lag (error in pagination)
+    [ ] make the % according on the skipped and un fineshid
+
 
 ## Main add
     [ ] allow translator to add projects
     [ ] add transaction table for points
+    [ ] logo and design
     
 
 
 ## Verification Page
-    [ ] add points to verifier
+    [x] add points to verifier
     [ ] add level to verifier
     [ ] shows more than one lang 
-    [ ] update the query remove projects where the user dont have enogh points
+    [x] update the query remove projects where the user dont have enogh points
     [ ] case study (multi project with small amount of money what happens?)
     [x] make when click in a project that enrolled to get trans of this project
     [x] improve page speed and fix bug(in pageination)
@@ -116,10 +123,11 @@ publisher -> project manager
 ## Add Project
     [ ] improve the design 
     [x] if lang not found add it
-    [ ] add edit to project
+    [x] add edit to project
     [ ] on edit dont re add what is in only if it empty
     [ ] add btn to stop project add it in db and update query
     [ ] make the admin able to disable a project and user cant un disable it
+    [x] make the user able to extract project
 
 
 ## profile page
@@ -143,3 +151,35 @@ publisher -> project manager
 ## billing page
     [ ] purchase points and withdraw points
 
+
+
+## this week
+  [x] points 
+  [x] remove reserved points and replace it by calc
+  [ ] ~~fix verification need refresh so need to recheck the points or something~~
+ [ ] ~~level~~
+ [ ] ~~image verification~~
+ [x] check the error in the points (the admin have points more thant it  should)
+ [x] check the error in the percentage
+ [x] remove fake data
+ [ ] make the admin panel accessed only by the admin
+ [x] fix bug show un enrolled project in verification
+ [x] make the user able to export data
+
+## week x
+ profile 
+ update data
+ update pass
+ update name
+ [ ] ~~if it will not works as needed we will remove the verification for multi project~~
+
+ 25/5/1
+ [ ] add the ali's pages
+ [x] make edit project page
+ [x] make the user able to extract data
+ [ ] works on dashboards
+ [ ] fix this make the dashboard show only the project that have translation to verify
+
+ ## next week 
+  [ ] accept translator
+  [ ] purchase and withdraw

@@ -3,24 +3,37 @@
 namespace App\Livewire;
 
 use App\Models\ActiveTranslation;
+use App\Models\Project;
 use App\Models\UpdatedTranslation;
+use App\Models\User;
 use Livewire\Component;
+use function Aws\load_compiled_json;
 class Verification extends Component
 {
     public ?int $project_id = null;
 
     public string $editableTranslation = '';
 
+    public $project = null;
     public $translation = null;
+
+    public $insufficientPointsUsers = [];
 
     public $user = null;
 
     public $allTranslations = [];
     public int $currentIndex = 0;
 
+    public $projectOwner = null;
+
     public function mount()
-    {   
+    {
         $this->user = auth()->user();
+        if($this->project_id){
+            $this->project = Project::find($this->project_id);
+            $this->projectOwner = User::find($this->project->user_id);
+        }
+        
         $this->loadTranslations();
         $this->loadCurrentTranslation();
     }
@@ -33,27 +46,48 @@ class Verification extends Component
 
     public function loadTranslations()
     {
-       
+
         $query = $this->user->translator->getTranslationsForVerify();
 
         if ($this->project_id) {
             $query->where("p.id", $this->project_id);
         }
+        if(!empty($this->insufficientPointsUsers)){
+            $query->whereNotIn("u.id",$this->insufficientPointsUsers);
+        }
+        // dd($this->insufficientPointsUsers);
 
         $this->allTranslations = $query->limit(50)->get();
     }
 
     public function loadCurrentTranslation()
-    {   
+    {
         if (isset($this->allTranslations[$this->currentIndex])) {
-
             $this->translation = $this->allTranslations[$this->currentIndex];
+            if(!$this->project_id){
+                $this->project = Project::find($this->translation->project_id);
+                $this->projectOwner = User::find($this->project->user_id);
+            }
+            if($this->project->points_per_word > 0){
+                $reservedPoints = ActiveTranslation::getReservedPoints($this->projectOwner->id) + $this->project->points_per_word; 
+                
+                if($this->projectOwner->points < $reservedPoints){
+                    $this->insufficientPointsUsers[] = $this->projectOwner->id;
+                    $this->reload(true);
+                    if(!($this->translation)){
+                        return;
+                    }
+                    
+                }
+            }
+            
             $this->editableTranslation = $this->translation->value;
             $this->_setActiveTranslation($this->user->id);
 
         } else {
             $this->translation = null;
-            $this->reload();            
+            $this->reload();
+           
         }
     }
 
@@ -61,6 +95,7 @@ class Verification extends Component
     {
         $this->_setVerification($translationId);
         $this->_removeActiveTranslation($translationId);
+        $this->addPointsToTranslator();
         $this->nextTranslation();
     }
 
@@ -116,14 +151,44 @@ class Verification extends Component
     }
 
     public function reload($forceReloadCurrentTranslation = false)
-    {   $reloadCurrentTranslation = false;
-        if(($this->currentIndex >= count($this->allTranslations)) && $this->currentIndex > 0){
+    {
+        $reloadCurrentTranslation = false;
+        if (($this->currentIndex >= count($this->allTranslations)) && $this->currentIndex > 0) {
             $reloadCurrentTranslation = true;
         }
         $this->currentIndex = 0;
         $this->loadTranslations();
-        if($forceReloadCurrentTranslation || $reloadCurrentTranslation){
+        if(empty($this->loadTranslations())){
+            $this->translation = null;
+            return ;
+        }
+        if ($forceReloadCurrentTranslation || $reloadCurrentTranslation) {
             $this->loadCurrentTranslation();
         }
     }
+
+    private function addPointsToTranslator()
+    {
+        if ($this->project->points_per_word > 0) {
+            $this->user->addPoints($this->project->points_per_word);
+            $this->projectOwner->removePoints($this->project->points_per_word);
+
+            // $transaction = 
+            // 
+
+            //  if from paypal the credit_user is null and type is paypal id
+            //  if from verification the type is verification
+            //  if from adding new image the type is add_image
+            //  if from sending points the type is send_points
+            // transaction::create([debit_user_id , credit_user_id, amount, transaction_type_id])
+
+
+        }
+    }
+
+
+
+
+
+
 }

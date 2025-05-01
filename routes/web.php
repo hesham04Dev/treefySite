@@ -23,17 +23,16 @@ Route::middleware(['auth', EnsureUserIsTranslator::class])->group(function () {
     // Translator-only routes
     Route::get('/translator/dashboard', [TranslatorController::class, 'view_dashboard']);
     Route::get('translations/verification/{project_id}', [TranslatorController::class, 'view_verification'])->name('project.verify');
-    Route::get('translations/verification', [TranslatorController::class, 'view_verification']);
+    Route::get('translations/verification', [TranslatorController::class, 'view_verification'])->name('verify');
 });
 
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get("/add_project",function () {
-        return view('publisher.addProject');
-    });
-    Route::get("/project", function () {
-        return view('publisher.addProject');})->name("project");
+    Route::get("/add_project",[ProjectController::class,"view_addProject"])->name("add_project");
+    Route::get("/project/{project_id}/edit",[ProjectController::class,"view_editProject"])->name("edit_project");
+    // Route::get("/project", function () {
+    //     return view('publisher.addProject');})->name("project");
     Route::get("/dashboard",[DashboardController::class,"view_dashboard"])->name("dashboard");
     Route::get("/user/fill_missing_data",[UserController::class,"view_fill_missing_data"]);
     Route::get('/projects', function () {

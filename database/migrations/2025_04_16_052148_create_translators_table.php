@@ -16,7 +16,7 @@ return new class extends Migration
             $table->boolean('is_accepted')->default(false);
             $table->string('cv_path')->nullable();
             $table->text('desc')->nullable();
-            $table->string('level')->default(1);
+            $table->integer('level')->default(1);
             $table->integer('exp')->default(0);
 
             $table->primary(['user_id']);

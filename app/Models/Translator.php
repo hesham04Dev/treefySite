@@ -49,35 +49,159 @@ class Translator extends Model
     }
 
 
-    // WIth multi edit at same time not tested
-    public function getTranslationsForVerify()
-    {
-        $translatorId = auth()->id();
+    
+//     public function getTranslationsForVerify()
+//     {
+//         $translatorId = auth()->id();
 
-        return DB::table('translation_keys as tk')
-            ->join('translations as t', 't.key_id', '=', 'tk.id')
-            ->join('projects as p', 't.project_id', '=', 'p.id')
-            ->join('languages as l', 'l.id', '=', 't.language_id')
-            ->leftJoin('verifications as v', 'v.translation_id', '=', 't.id')
+//         return DB::table('translation_keys as tk')
+//             ->join('translations as t', 't.key_id', '=', 'tk.id')
+//             ->join('projects as p', 't.project_id', '=', 'p.id')
+//             ->join('languages as l', 'l.id', '=', 't.language_id')
+//             ->join('users as u', 'u.id', '=', 'p.user_id')
+//             ->leftJoin('verifications as v', 'v.translation_id', '=', 't.id')
+//             ->where('p.is_active', 1)
 
-            // ❌ Exclude translations already verified by this translator
-            ->whereNotExists(function ($query) use ($translatorId) {
-                $query->select(DB::raw(1))
-                    ->from('verifications')
-                    ->whereColumn('verifications.translation_id', 't.id')
-                    ->where('verifications.translator_id', $translatorId);
-            })
+//             //  if user project points per word > 0 
+//             // ->where('u.points', '>', 0)
 
-            // ✅ Include only translations in the languages the translator knows
-            ->whereIn('t.language_id', function ($query) use ($translatorId) {
-                $query->select('language_id')
-                    ->from('language_translator')
-                    ->where('translator_id', $translatorId);
-            })
+//             // ❌ Exclude translations already verified by this translator
+//             ->whereNotExists(function ($query) use ($translatorId) {
+//                 $query->select(DB::raw(1))
+//                     ->from('verifications')
+//                     ->whereColumn('verifications.translation_id', 't.id')
+//                     ->where('verifications.translator_id', $translatorId);
+//             })
 
-            // ❌ Already being actively verified by another translator
-            ->whereRaw("
-    (
+//             // ✅ Include only translations in the languages the translator knows
+//             ->whereIn('t.language_id', function ($query) use ($translatorId) {
+//                 $query->select('language_id')
+//                     ->from('language_translator')
+//                     ->where('translator_id', $translatorId);
+//             })
+
+//             // ❌ Already being actively verified by another translator
+//             ->whereRaw("
+//     (
+//         (
+//             SELECT COUNT(*)
+//             FROM active_translations at
+//             WHERE at.translation_id = t.id
+//               AND at.translator_id != ?
+//               AND at.locked_at >= NOW() - INTERVAL 30 MINUTE
+//         ) < p.verification_no
+        
+//     )
+// ", [$translatorId])
+
+
+//             // ✅ Select needed columns
+//             ->select(
+//                 'p.id as project_id',
+//                 'tk.value as key',
+//                 't.id as id',
+//                 't.value as value',
+//                 'l.name as language',
+//                 'p.verification_no',
+//                 // 't.active_translators'
+//             )
+
+//             // ✅ Group by necessary columns
+//             ->groupBy(
+//                 't.id',
+//                 'tk.id',
+//                 'tk.value',
+//                 'p.id',
+//                 'p.verification_no',
+//                 'l.name',
+//                 't.value'
+//             )
+
+//             // ✅ Only show translations needing more verifications
+//             ->havingRaw('COUNT(v.id) < p.verification_no');
+//     }
+
+
+
+public function getTranslationsForVerify()
+{
+    $translatorId = auth()->id();
+
+    $query = DB::table('translation_keys as tk')
+    ->join('translations as t', 't.key_id', '=', 'tk.id')
+    ->join('projects as p', 't.project_id', '=', 'p.id')
+    ->join('languages as l', 'l.id', '=', 't.language_id')
+    ->join('users as u', 'u.id', '=', 'p.user_id')
+    ->leftJoin('verifications as v', 'v.translation_id', '=', 't.id')
+    ->join('project_translator as pt', function ($join) {
+        $join->on('pt.project_id', '=', 'p.id')
+             ->where('pt.translator_id', '=', $this->user_id);
+    })
+    ->where('t.skipped', 0);
+
+
+    $this->applyActiveProjectsFilter($query);
+    $this->applyPointsPerWordFilter($query);
+    $this->excludeAlreadyVerifiedTranslations($query, $translatorId);
+    $this->includeTranslatorLanguagesOnly($query, $translatorId);
+    $this->excludeActivelyLockedTranslations($query, $translatorId);
+    $this->selectTranslationColumns($query);
+    $this->groupTranslationResults($query);
+    $this->filterByNeededVerifications($query);
+
+    return $query;
+}
+
+private function applyActiveProjectsFilter($query)
+{
+    $query->where('p.is_disabled', 0);
+}
+
+private function applyPointsPerWordFilter($query)
+{
+    // note this before showing translation there are another check when load current translation
+    $query->whereRaw('(p.points_per_word = 0 OR u.points > 0)');
+
+    // $query->where(function($q) {
+    //     $q->where('p.points_per_word', 0)
+    //       ->orWhereRaw('
+    //           (
+    //               u.points - (
+    //                   SELECT IFNULL(SUM(p2.points_per_word), 0)
+    //                   FROM active_translations at2
+    //                   INNER JOIN translations t2 ON t2.id = at2.translation_id
+    //                   INNER JOIN projects p2 ON p2.id = t2.project_id
+    //                   WHERE p2.user_id = u.id
+    //                     AND at2.locked_at >= NOW() - INTERVAL 30 MINUTE
+    //               )
+    //           ) >= p.points_per_word
+    //       ');
+    // });
+   
+}
+
+private function excludeAlreadyVerifiedTranslations($query, $translatorId)
+{
+    $query->whereNotExists(function ($subQuery) use ($translatorId) {
+        $subQuery->select(DB::raw(1))
+            ->from('verifications')
+            ->whereColumn('verifications.translation_id', 't.id')
+            ->where('verifications.translator_id', $translatorId);
+    });
+}
+
+private function includeTranslatorLanguagesOnly($query, $translatorId)
+{
+    $query->whereIn('t.language_id', function ($subQuery) use ($translatorId) {
+        $subQuery->select('language_id')
+            ->from('language_translator')
+            ->where('translator_id', $translatorId);
+    });
+}
+
+private function excludeActivelyLockedTranslations($query, $translatorId)
+{
+    $query->whereRaw("
         (
             SELECT COUNT(*)
             FROM active_translations at
@@ -85,100 +209,53 @@ class Translator extends Model
               AND at.translator_id != ?
               AND at.locked_at >= NOW() - INTERVAL 30 MINUTE
         ) < p.verification_no
-        
-    )
-", [$translatorId])
+    ", [$translatorId]);
+}
+
+private function selectTranslationColumns($query)
+{
+    $query->select(
+        'p.id as project_id',
+        'tk.value as key',
+        't.id as id',
+        't.value as value',
+        'l.name as language',
+        'p.verification_no'
+    );
+}
+
+private function groupTranslationResults($query)
+{
+    $query->groupBy(
+        't.id',
+        'tk.id',
+        'tk.value',
+        'p.id',
+        'p.verification_no',
+        'l.name',
+        't.value'
+    );
+}
+
+private function filterByNeededVerifications($query)
+{
+    $query->havingRaw('COUNT(v.id) < p.verification_no');
+}
 
 
-            // ✅ Select needed columns
-            ->select(
-                'p.id as project_id',
-                'tk.value as key',
-                't.id as id',
-                't.value as value',
-                'l.name as language',
-                'p.verification_no',
-                // 't.active_translators'
-            )
 
-            // ✅ Group by necessary columns
-            ->groupBy(
-                't.id',
-                'tk.id',
-                'tk.value',
-                'p.id',
-                'p.verification_no',
-                'l.name',
-                't.value'
-            )
+    public function getLevelPercentage()
+    {
+        $level = $this->level;
+        $exp = $this->exp;
 
-            // ✅ Only show translations needing more verifications
-            ->havingRaw('COUNT(v.id) < p.verification_no');
+        $baseExp = 1000;
+
+        $maxExp = $level * $baseExp;
+
+        return round(($exp / $maxExp) * 100);
+
     }
-
-
-    // public function getTranslationsForVerify()
-    // {
-    //     $translatorId = auth()->id();
-
-    //     return DB::table('translation_keys as tk')
-    //         ->join('translations as t', 't.key_id', '=', 'tk.id')
-    //         ->join('projects as p', 't.project_id', '=', 'p.id')
-    //         ->join('languages as l', 'l.id', '=', 't.language_id')
-    //         ->leftJoin('verifications as v', 'v.translation_id', '=', 't.id')
-
-    //         // ❌ Exclude translations already verified by this translator
-    //         ->whereNotExists(function ($query) use ($translatorId) {
-    //             $query->select(DB::raw(1))
-    //                 ->from('verifications')
-    //                 ->whereColumn('verifications.translation_id', 't.id')
-    //                 ->where('verifications.translator_id', $translatorId);
-    //         })
-
-    //         // ✅ Include only translations in the languages the translator knows
-    //         ->whereIn('t.language_id', function ($query) use ($translatorId) {
-    //             $query->select('language_id')
-    //                 ->from('language_translator')
-    //                 ->where('translator_id', $translatorId);
-    //         })
-
-    //         // ❌ Already being actively verified by another translator
-    //         ->whereRaw("
-    //         (
-    //             SELECT COUNT(*)
-    //             FROM active_translations
-    //             WHERE active_translations.translation_id = t.id
-    //             AND active_translations.translator_id != ?
-    //             AND active_translations.created_at >= NOW() - INTERVAL 2 MINUTE
-    //         ) < p.verification_no
-    //     ", [$translatorId])
-
-    //         // ✅ Select needed columns
-    //         ->select(
-    //             'p.id as project_id',
-    //             'tk.value as `key`',
-    //             't.id as translation_id',
-    //             't.value as translation',
-    //             'l.name as lang',
-    //             'p.verification_no',
-    //             't.active_translators'
-    //         )
-
-    //         // ✅ Group by necessary columns
-    //         ->groupBy(
-    //             't.id',
-    //             'tk.id',
-    //             'tk.value',
-    //             'p.id',
-    //             'p.verification_no',
-    //             't.active_translators',
-    //             'l.name',
-    //             't.value'
-    //         )
-
-    //         // ✅ Only show translations needing more verifications
-    //         ->havingRaw('COUNT(v.id) < (p.verification_no - t.active_translators)');
-    // }
 
 }
 

@@ -3,7 +3,7 @@
 
 <div class="flex items-center space-x-2">
     @if($user->ownProject($projectId))
-        <a href="{{ route('project', $projectId) }}"
+        <a href="{{ route('edit_project', $projectId) }}"
             class="px-3 py-1 text-sm text-white bg-yellow-500 rounded hover:bg-yellow-600 transition">
             Edit
         </a>
