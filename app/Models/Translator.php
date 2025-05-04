@@ -123,7 +123,7 @@ class Translator extends Model
 
 
 
-public function getTranslationsForVerify()
+public function getTranslationsForVerify($withSelect=true)
 {
     $translatorId = auth()->id();
 
@@ -145,11 +145,18 @@ public function getTranslationsForVerify()
     $this->excludeAlreadyVerifiedTranslations($query, $translatorId);
     $this->includeTranslatorLanguagesOnly($query, $translatorId);
     $this->excludeActivelyLockedTranslations($query, $translatorId);
-    $this->selectTranslationColumns($query);
+    if($withSelect) {
+        $this->selectTranslationColumns($query);
+        
+    }
     $this->groupTranslationResults($query);
     $this->filterByNeededVerifications($query);
 
     return $query;
+}
+
+public function getProjectsForVerify(){
+
 }
 
 private function applyActiveProjectsFilter($query)
@@ -227,6 +234,7 @@ private function selectTranslationColumns($query)
 private function groupTranslationResults($query)
 {
     $query->groupBy(
+        // 'p.*',
         't.id',
         'tk.id',
         'tk.value',

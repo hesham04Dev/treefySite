@@ -13,7 +13,7 @@ use App\Http\Middleware\EnsureUserIsNotTranslator;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 Route::get('/home', function () {
     return view('home');
 });

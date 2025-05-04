@@ -109,26 +109,28 @@ publisher -> project manager
 
 ## Verification Page
     [x] add points to verifier
-    [ ] add level to verifier
+    [ ] ~~add level to verifier~~
     [ ] shows more than one lang 
     [x] update the query remove projects where the user dont have enogh points
-    [ ] case study (multi project with small amount of money what happens?)
+    [x] case study (multi project with small amount of money what happens?)
     [x] make when click in a project that enrolled to get trans of this project
     [x] improve page speed and fix bug(in pageination)
     [x] prevent the user from verify the same translation more than one time
     [x] fix error 
-    [ ] when have only one verifier so in verification is_selected = 1
+    [x] when have only one verifier so in verification is_selected = 1
+    [x] if all the verification have the same data the translation done
+
 
 
 ## Add Project
     [ ] improve the design 
     [x] if lang not found add it
     [x] add edit to project
-    [ ] on edit dont re add what is in only if it empty
-    [ ] add btn to stop project add it in db and update query
-    [ ] make the admin able to disable a project and user cant un disable it
+    [x] add new keys 
+    [x] add btn to stop project add it in db and update query
+    [ ] ~~make the admin able to disable a project and user cant un disable it~~
     [x] make the user able to extract project
-
+    [ ] add toast success or faild in add update..
 
 ## profile page
     [ ] when translator update his translations we need to verify them 
@@ -141,7 +143,7 @@ publisher -> project manager
 
 ## Verified translation page 
     [x] Create the page
-    [ ] works on its logic should have api to get trans in user default lang
+    [ ] ~~works on its logic should have api to get trans in user default lang~~
     [x] make the user select the verification (when selected it update the trans table and sit it with skipped)
     [ ] add filter for not selected 
     [ ] make this page for projects that have more than 1 verification / word
@@ -149,6 +151,7 @@ publisher -> project manager
     and make it done
 
 ## billing page
+    [ ] do resarsh how to integrate payment method in the app
     [ ] purchase points and withdraw points
 
 
@@ -162,7 +165,7 @@ publisher -> project manager
  [x] check the error in the points (the admin have points more thant it  should)
  [x] check the error in the percentage
  [x] remove fake data
- [ ] make the admin panel accessed only by the admin
+ [x] make the admin panel accessed only by the admin
  [x] fix bug show un enrolled project in verification
  [x] make the user able to export data
 
@@ -178,8 +181,17 @@ publisher -> project manager
  [x] make edit project page
  [x] make the user able to extract data
  [ ] works on dashboards
- [ ] fix this make the dashboard show only the project that have translation to verify
+ [x] fix this make the dashboard show only the project that have translation to verify
 
  ## next week 
   [ ] accept translator
   [ ] purchase and withdraw
+
+
+## login
+ [ ] fix un correct password error 
+
+ ## project list
+  [x] remove the disabled project from the project list
+  [x] hide project that does not have translation for this translator
+  [ ] hide project if the user is banned

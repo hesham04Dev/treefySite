@@ -13,7 +13,7 @@ class ProjectsList extends Component
     use WithPagination;
 
     public ?int $userId = null;
-    public ?int $limit=2;
+    public ?int $limit = 2;
 
 
     protected $listeners = ['enroll', 'unEnroll', 'startVerification'];
@@ -40,7 +40,7 @@ class ProjectsList extends Component
 
     public function render()
     {
-        $data=[];
+        $data = [];
         $data["title"] = "All Projects";
         $projectsQuery = Project::query();
 
@@ -48,16 +48,22 @@ class ProjectsList extends Component
             $user = User::find($this->userId);
 
             if ($user?->isTranslator()) {
-                $data["title"]  = "Enrolled Projects";
-                $data["href"]  = "/projects";
-                $projectsQuery = $user->translator->enrolledProjects();
+                $data["title"] = "Enrolled Projects";
+                $data["href"] = "/projects";
+                // $projectsQuery = $user->translator->enrolledProjects();
+
+                $projectsQuery = Project::whereIn('id', $user->translator->getTranslationsForVerify(false)
+                    ->select('p.id')
+                    ->distinct());
             } else {
                 $title = "Your Projects";
-                $data["href"]  = "/add_project";
+                $data["href"] = "/add_project";
                 $projectsQuery = $user->projects();
+                $projectsQuery = $projectsQuery->whereRaw("(projects.is_disabled = 0 OR projects.user_id = ?)", [auth()->user()->id]);
             }
         }
-
+        //  remove disabled projects if not the owner
+      
         $projects = $projectsQuery->paginate($this->limit); // Adjust the per-page value as needed
 
         return view('livewire.projects-list', compact('projects', 'data'));

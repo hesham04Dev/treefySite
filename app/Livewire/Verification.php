@@ -106,6 +106,21 @@ class Verification extends Component
             'translation_id' => $translationId,
             'is_correct' => $this->editableTranslation == $this->translation->value,
         ]);
+        if($this->project->points_per_word == 1){
+            $this->translation->is_done=1;
+            $this->translation->save();
+        }
+        $verifications = $this->getVerifications();
+        if($this->project->points_per_word == count($verifications)){
+            if($this->allVerificationsSame()){
+                if($verifications[0]->updatedTranslation){
+                    $this->translation->value = $verifications[0]->updatedTranslation->value;
+                }
+                $this->translation->is_done=1;
+                $this->translation->save();
+            }
+            
+        }
         $this->_setUpdatedTranslation($verification->id);
 
     }
@@ -186,7 +201,41 @@ class Verification extends Component
         }
     }
 
+    private function getVerifications()
+    {
+        return \App\Models\Verification::where('translation_id', $this->translation->id)
+            ->get();
+    }
 
+    private function allVerificationsSame($verifications){
+        $allCorrect = true;
+        $allIncorrect = true;
+        foreach($verifications as $verification){
+            if(!$verification->is_correct){
+                $allCorrect = false;
+            }else{
+                $allIncorrect = false;
+            }
+            
+        }
+        if($allCorrect){
+            return true;
+        }else if($allIncorrect){
+            $old = null;
+            foreach($verifications as $verification){
+                if($old == null){
+                    $old = $verification->updatedTranslation->value;
+                }
+                else if($old != $verification->updatedTranslation->value){
+                    return false;
+                }
+                
+            }
+            return true;
+        }
+
+        return false;
+    }
 
 
 
