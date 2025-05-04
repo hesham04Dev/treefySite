@@ -2,6 +2,7 @@
 
 namespace App\Forms;
 
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
@@ -37,6 +38,7 @@ class TranslatorForm
             $langs,
             FileUpload::make('cv_path'),
             Textarea::make('desc')->name("Description")->required(),
+            Checkbox::make('is_accepted'),
         ];
     }
 }

@@ -137,6 +137,7 @@ public function getTranslationsForVerify($withSelect=true)
         $join->on('pt.project_id', '=', 'p.id')
              ->where('pt.translator_id', '=', $this->user_id);
     })
+    ->where('u.is_banned', 0)
     ->where('t.skipped', 0);
 
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TranslatorController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\EnsureTranslatorIsAccepted;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\AuthController;
@@ -19,7 +20,7 @@ Route::get('/home', function () {
 });
 
 
-Route::middleware(['auth', EnsureUserIsTranslator::class])->group(function () {
+Route::middleware(['auth', EnsureUserIsTranslator::class ,EnsureTranslatorIsAccepted::class])->group(function () {
     // Translator-only routes
     Route::get('/translator/dashboard', [TranslatorController::class, 'view_dashboard']);
     Route::get('translations/verification/{project_id}', [TranslatorController::class, 'view_verification'])->name('project.verify');

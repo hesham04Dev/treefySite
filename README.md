@@ -56,4 +56,5 @@ password_reset_tokens(email, token, created_at)
 
 jobs(id, queue, payload, attempts, reserved_at, available_at, created_at)
 
+transaction:(debit_user_id , credit_user_id, amount, transaction_type_id)
 

@@ -15,10 +15,11 @@ class EnsureTranslatorIsAccepted
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->isTranslator() && auth()->user()->translator()->is_accepted()) {
+        
+        if (auth()->check() && auth()->user()->isTranslator() && auth()->user()->translator->is_accepted) {
             return $next($request);
         }
 
-        abort(403, 'Watting to Accept your Request');
+        abort(403, 'Waiting to Accept your Request');
     }
 }

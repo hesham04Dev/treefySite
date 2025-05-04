@@ -15,7 +15,7 @@ class EnsureIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->email =="hesham04.dev@gmail.com") {
+        if (auth()->check() && auth()->user()->email =="hesham04.developer@gmail.com") {
             return $next($request);
         }
         return redirect()->route('home');

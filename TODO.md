@@ -184,7 +184,13 @@ publisher -> project manager
  [x] fix this make the dashboard show only the project that have translation to verify
 
  ## next week 
-  [ ] accept translator
+  [x] make the un accepted translator cant do any thing
+  [x] accept translator
+  [x] work on the admin dashboard and finish it
+  [ ] work on profile and request new lang 
+  [ ] work on users dashboard 
+  [ ] work on gitting the updated values in user lang
+  [ ] check if add project delete the temp unzip or export also
   [ ] purchase and withdraw
 
 
@@ -194,4 +200,4 @@ publisher -> project manager
  ## project list
   [x] remove the disabled project from the project list
   [x] hide project that does not have translation for this translator
-  [ ] hide project if the user is banned
+  [x] hide project if the user is banned

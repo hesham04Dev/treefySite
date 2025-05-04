@@ -67,7 +67,7 @@ class TranslatorResource extends Resource
                         return UserForm::make(); // Ensure this is correct and returns a valid form
                     })
                     ->required(),
-                    ...TranslatorForm::make()
+                ...TranslatorForm::make()
             ]);
     }
 
@@ -84,6 +84,18 @@ class TranslatorResource extends Resource
                     )
                     ->wrap() // optional: to prevent overflow
                     ->searchable(),
+                ToggleColumn::make("is_accepted")->label("accept"),
+                TextColumn::make('cv_path')
+                    ->label('CV')
+                    ->formatStateUsing(function ($state) {
+                        if (!$state)
+                            return 'No file';
+                        return 'Download';
+                    })
+                    ->url(function ($record) {
+                        return \Storage::disk('public')->url($record->cv_path);
+                    }, true) 
+                    ->openUrlInNewTab(),
             ])
             ->filters([
                 //
@@ -111,6 +123,8 @@ class TranslatorResource extends Resource
             'index' => Pages\ListTranslators::route('/'),
             'create' => Pages\CreateTranslator::route('/create'),
             'edit' => Pages\EditTranslator::route('/{record}/edit'),
+            // 'accept' => Pages\AcceptTranslators::class,
+            'new' => Pages\ViewNewTranslator::route('/need-accept'),
         ];
     }
 

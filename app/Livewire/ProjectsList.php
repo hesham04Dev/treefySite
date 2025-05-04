@@ -59,7 +59,9 @@ class ProjectsList extends Component
                 $title = "Your Projects";
                 $data["href"] = "/add_project";
                 $projectsQuery = $user->projects();
-                $projectsQuery = $projectsQuery->whereRaw("(projects.is_disabled = 0 OR projects.user_id = ?)", [auth()->user()->id]);
+                $projectsQuery = $projectsQuery
+                
+                ->whereRaw("(projects.is_disabled = 0 OR projects.user_id = ?)", [auth()->user()->id]);
             }
         }
         //  remove disabled projects if not the owner
