@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TranslatorController;
 use App\Http\Controllers\UserController;
@@ -21,6 +22,7 @@ Route::get('/home', function () {
 
 
 Route::middleware(['auth', EnsureUserIsTranslator::class ,EnsureTranslatorIsAccepted::class])->group(function () {
+    
     // Translator-only routes
     Route::get('/translator/dashboard', [TranslatorController::class, 'view_dashboard']);
     Route::get('translations/verification/{project_id}', [TranslatorController::class, 'view_verification'])->name('project.verify');
@@ -30,6 +32,7 @@ Route::middleware(['auth', EnsureUserIsTranslator::class ,EnsureTranslatorIsAcce
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get("/profile", [ProfileController::class,"view_profile"] );
     Route::get("/add_project",[ProjectController::class,"view_addProject"])->name("add_project");
     Route::get("/project/{project_id}/edit",[ProjectController::class,"view_editProject"])->name("edit_project");
     // Route::get("/project", function () {

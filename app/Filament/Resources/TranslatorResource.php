@@ -113,7 +113,7 @@ class TranslatorResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\LanguageRequestRelationManager::class,
         ];
     }
 
@@ -124,7 +124,7 @@ class TranslatorResource extends Resource
             'create' => Pages\CreateTranslator::route('/create'),
             'edit' => Pages\EditTranslator::route('/{record}/edit'),
             // 'accept' => Pages\AcceptTranslators::class,
-            'new' => Pages\ViewNewTranslator::route('/need-accept'),
+            'lang_request' => Pages\LangRequests::route('/lang-request'),
         ];
     }
 

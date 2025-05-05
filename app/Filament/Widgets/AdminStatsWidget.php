@@ -44,12 +44,11 @@ class AdminStatsWidget extends StatsOverviewWidget
             // )->count()),
 
             Card::make('Total Projects', Project::count()),
-            Card::make('no of supported langs', DB::table('language_translator')->distinct('language_id')->count()
-),
+            Card::make('no of supported langs', DB::table('language_translator')->distinct('language_id')->count()),
             
+            Card::make('Requested langs', DB::table('language_requests')->where('is_approved','0')->count()),
 
-
-            Card::make('Total Profit (Admin Points)', auth()->user()->points), 
+            // Card::make('Total Profit (Admin Points)', auth()->user()->points), 
         ];
     }
 }

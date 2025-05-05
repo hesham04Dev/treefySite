@@ -187,7 +187,10 @@ publisher -> project manager
   [x] make the un accepted translator cant do any thing
   [x] accept translator
   [x] work on the admin dashboard and finish it
-  [ ] work on profile and request new lang 
+  [x] user password  
+  [x] change password 
+  [x] work on profile and request new lang or remove lang
+  [x] work on admin panel add accept add new lang 
   [ ] work on users dashboard 
   [ ] work on gitting the updated values in user lang
   [ ] check if add project delete the temp unzip or export also
