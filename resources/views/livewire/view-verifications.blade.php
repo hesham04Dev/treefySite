@@ -5,20 +5,20 @@
         <div class="flex flex-col gap-4">
             @forelse ($verifications as $verification)
                 <div class="flex flex-col gap-2">
-                    <div class="flex items-center gap-2">
+                    <div wire:key="verification-{{$verification->id}}" class="flex items-center gap-2">
                         <div class="text-sm font-semibold text-gray-700">
                             {{ optional($verification->translator?->user)->name ?? 'Unknown Translator' }}
                         </div>
                         <div class="text-sm text-gray-500">
-                            {{ $verification->is_correct ? 'Correct' : 'Incorrect' }}
+                            {{ $verification->is_correct ? __("correct") : __("incorrect") }}
                         </div>
 
                         @if (!$verification->is_correct)
                             <div class="text-sm text-red-500">
-                                {{ optional($verification->updatedTranslation)->value ?? 'No update provided' }}
+                                {{ optional($verification->updatedTranslation)->value ?? '' }}
                             </div>
                             <div class="text-sm text-red-500">
-                                {{ optional($verification->updatedTranslation)->translate ?? '' }}
+                                {{ optional($verification->updatedTranslation)->translateToUserLang() ?? '' }}
                             </div>
                         @endif
 
@@ -29,14 +29,15 @@
                 </div>
             @empty
                 <div class="text-sm text-gray-400">
-                    No verifications available for this translation.
+                    {{__("no_verification")}}
+                    
                 </div>
             @endforelse
         </div>
     </div>
 @else
     <div class="text-sm text-gray-400">
-        No Verification.
+        {{__(key: "no_verification")}}
     </div>
 @endif
 </div>

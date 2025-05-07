@@ -11,6 +11,17 @@
             <input wire:model="name" type="text" class="w-full p-2 border rounded">
             @error('name') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
         </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Language</label>
+            <select wire:model="default_lang" class="w-full p-2 border rounded">
+                <option value="">-- Select Language --</option>
+                @foreach($languages as $language)
+                    <option value="{{ $language->id }}">{{ $language->name }} ({{ $language->code }})</option>
+                @endforeach
+            </select>
+            @error('default_lang') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+        </div>
+        
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
     </form>
 

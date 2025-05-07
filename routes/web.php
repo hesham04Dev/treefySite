@@ -13,6 +13,20 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Middleware\EnsureUserIsTranslator;
 use App\Http\Middleware\EnsureUserIsNotTranslator;
 
+
+
+Route::get('/locale/{lang}', function ($lang) {
+    if (in_array($lang, ['en', 'ar'])) {
+        Session::put('locale', $lang);
+        App::setLocale($lang);
+    }
+    return redirect()->back();
+})->name('locale.switch');
+
+
+
+
+
 Route::get('/', function () {
     return view('home');
 })->name('home');

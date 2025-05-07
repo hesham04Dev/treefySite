@@ -95,11 +95,11 @@
   
                   <!-- Desktop Navigation -->
                   <nav class="hidden md:flex items-center space-x-8">
-                      <a href="#features" class="text-sm font-medium hover:text-green-600 transition-colors">Features</a>
-                      <a href="#how-it-works" class="text-sm font-medium hover:text-green-600 transition-colors">How It Works</a>
-                      <a href="#faq" class="text-sm font-medium hover:text-green-600 transition-colors">FAQ</a>
+                      <a href="#features" class="text-sm font-medium hover:text-green-600 transition-colors">{{__("features")}}</a>
+                      <a href="#how-it-works" class="text-sm font-medium hover:text-green-600 transition-colors">{{__("how_it_works")}}</a>
+                      <a href="#faq" class="text-sm font-medium hover:text-green-600 transition-colors">{{__("f_a_q")}}</a>
                       <a href="#" class="inline-flex items-center justify-center whitespace-nowrap rounded-md bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-colors">
-                          Download
+                        {{__("download")}} 
                       </a>
                   </nav>
   
@@ -132,7 +132,7 @@
                       <a href="#how-it-works" class="text-sm font-medium hover:text-green-600 transition-colors">How It Works</a>
                       <a href="#faq" class="text-sm font-medium hover:text-green-600 transition-colors">FAQ</a>
                       <a href="#" class="inline-flex items-center justify-center whitespace-nowrap rounded-md bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-2 text-sm font-medium text-white hover:opacity-90 transition-colors w-full">
-                          Download
+                        {{__("download")}}
                       </a>
                   </nav>
               </div>
@@ -142,23 +142,24 @@
       <!-- Hero Section -->
       <section class="container mx-auto px-4 py-20 text-center">
           <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-6 animate-fade-in">
-              AI-powered Localization Helper
+            {{__("treefy_slogan")}}
+             
           </h1>
           <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Add, manage, and expand your app's localizations effortlessly with the power of AI.
+            {{__("treefy_slogan_desc")}}
           </p>
           <a href="#" class="inline-flex items-center justify-center whitespace-nowrap rounded-md bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-6 text-lg font-medium text-white hover:opacity-90 transition-colors">
-              Get Started
+            {{__("get_started")}}
           </a>
       </section>
   
       <!-- Features Section -->
       <section id="features" class="container mx-auto px-4 py-20">
           <h2 class="text-3xl font-bold text-center mb-12">
-              Empower Your App to Speak Every Language
+              {{__("empower_your_app")}}
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              @foreach(['Automatic Language Detection', 'AI-Powered Translations', 'Human Verification System', 'Multi-Platform Support'] as $feature)
+              @foreach(['AI-Powered Translations', __('human_verification_system') , 'Multi-Platform Support'] as $feature)
                   <div class="p-6 rounded-lg border bg-white/50 backdrop-blur-sm hover:shadow-lg transition-all">
                       <div class="flex items-center space-x-3">
                           <span class="text-green-600 text-xl">✓</span>
@@ -172,7 +173,7 @@
       <!-- How It Works Section -->
       <section id="how-it-works" class="container mx-auto px-4 py-20 bg-gradient-to-b from-white to-gray-50">
           <h2 class="text-3xl font-bold text-center mb-12">
-              How It Works
+            {{__("how_it_works")}}
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               @foreach(['Upload Your Project', 'AI-Assisted Translation', 'Human Verification', 'Export Ready Files'] as $step)
@@ -187,12 +188,13 @@
       <!-- FAQ Section -->
       <section id="faq" class="container mx-auto px-4 py-20">
           <h2 class="text-3xl font-bold text-center mb-12">
-              Frequently Asked Questions
+            {{__("f_a_q")}}           
+
           </h2>
           <div class="max-w-2xl mx-auto space-y-4">
               @foreach([
                   ['Is Treefy free?', 'Yes! Treefy is open-source and free for developers.'],
-                  ['Which frameworks are supported?', 'Flutter, Web, Android, iOS, JSON, ARB, YAML, and CSV formats.'],
+                  ['what is the supported format', ' JSON '],
                   ['Can I customize translations?', 'Absolutely. You can manually edit or review translations anytime.']
               ] as $faq)
                   <div 

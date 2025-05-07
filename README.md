@@ -28,7 +28,7 @@
 
 
 ## db
-users(id, name, email, email_verified_at, password, points=0, is_banned=0, is_new_user=1, remember_token, created_at, updated_at, google_id, avatar)
+users(id, name, email, email_verified_at, password, points=0, is_banned=0, is_new_user=1, remember_token, created_at, updated_at, google_id, avatar,default_lang)
 
 translators(user_id, is_accepted=0, cv_path, desc, level=1, exp=0)
 

@@ -177,7 +177,7 @@ publisher -> project manager
  [ ] ~~if it will not works as needed we will remove the verification for multi project~~
 
  25/5/1
- [ ] add the ali's pages
+ [x] add the ali's pages
  [x] make edit project page
  [x] make the user able to extract data
  [ ] works on dashboards
@@ -191,14 +191,19 @@ publisher -> project manager
   [x] change password 
   [x] work on profile and request new lang or remove lang
   [x] work on admin panel add accept add new lang 
+  [ ] add default lang to the user in signup (in the dashboard or something)
   [ ] work on users dashboard 
-  [ ] work on gitting the updated values in user lang
+  [x] work on gitting the updated values in user lang
   [ ] check if add project delete the temp unzip or export also
   [ ] purchase and withdraw
+  [ ] make the app support multi lang
+  [ ] create laravel package to auto generate keywords?!
+  [ ] markdown to html in the view verifictaion
+  
 
 
 ## login
- [ ] fix un correct password error 
+ [x] fix un correct password error 
 
  ## project list
   [x] remove the disabled project from the project list

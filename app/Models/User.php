@@ -38,6 +38,10 @@ class User extends Authenticatable
         return $this->translator()->exists();
     }
 
+    public function language() {
+        return $this->hasOne(Language::class, "id", "default_lang");
+    }
+
     public function translator() {
         return $this->hasOne(Translator::class,"user_id");
     }

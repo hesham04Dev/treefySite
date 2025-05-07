@@ -5,7 +5,7 @@
     <section class="p-6">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <div class="md:w-2/5">
-                <h2 class="text-2xl font-semibold mt-4 text-gray-800">👋 df_welcome {{ $user->name }}</h2>
+                <h2 class="text-2xl font-semibold mt-4 text-gray-800">👋 {{__("welcome")}} {{ $user->name }}</h2>
             </div>
 
             <div class="md:w-1/5">

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App;
 use App\Models\Project;
 use DB;
 use Livewire\Component;
@@ -19,7 +20,10 @@ class ViewVerifications extends Component
 
     private $perPage = 50;
 
+    // public $gemini =null;
+
     public function mount(){
+        // $this->gemini = new \App\Services\GeminiService();
         $this->loadTranslations();
         $this->loadCurrentVerifications();
     }
@@ -27,6 +31,8 @@ class ViewVerifications extends Component
    
     public function loadTranslations()
     {
+
+      
         $project = Project::findOrFail($this->projectId);
     
         $this->translations = $project->translations()

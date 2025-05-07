@@ -54,7 +54,9 @@ class AuthController extends Controller
             return redirect('/home');
         } else {
 
-            return response()->json(['error' => 'Invalid credentials'], 401);
+            // response()->json(['error' => 'Invalid credentials'], 401);
+            session()->flash('error', 'Invalid user name or password ' );
+            return redirect('/login');
         }
     }
 
