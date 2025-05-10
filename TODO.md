@@ -67,10 +67,10 @@ publisher -> project manager
 
 ## Dashboard
  ### Admin Dashboard
-    [ ] add todos
-    [ ] prevent access to admin paned from non admin (create ensure is admin or something)
-    [ ] add accept translator 
-    [ ] add accept language update
+    [x] add todos
+    [x] prevent access to admin paned from non admin (create ensure is admin or something)
+    [x] add accept translator 
+    [x] add accept language update
     [ ] 
  ### project_manager dashboard
     [ ] works on design 
@@ -83,15 +83,15 @@ publisher -> project manager
  [x] add default lang
 
 ## Translator
- [ ] work on level next level methodlogy like achivement box  
+ [ ] ~~work on level next level methodlogy like achivement box ~~ 
 
 
 ## Main Pages
     [ ] build home page like longchain 
     [ ] build terms and conditions
     [ ] build about us page
-    [ ] build profile page
-    [ ] build projects page (translator can enroll)
+    [x] build profile page
+    [x] build projects page (translator can enroll)
 
 ## Main fixes
     [x] fix footer always in bottom
@@ -191,14 +191,18 @@ publisher -> project manager
   [x] change password 
   [x] work on profile and request new lang or remove lang
   [x] work on admin panel add accept add new lang 
-  [ ] add default lang to the user in signup (in the dashboard or something)
+  [x] add default lang to the user in signup (in the dashboard or something)
+  [ ] show btn in the menu  to choose a lang (not important)
   [ ] work on users dashboard 
   [x] work on gitting the updated values in user lang
   [ ] check if add project delete the temp unzip or export also
   [ ] purchase and withdraw
-  [ ] make the app support multi lang
-  [ ] create laravel package to auto generate keywords?!
-  [ ] markdown to html in the view verifictaion
+  [-] make the app support multi lang
+  [ ] ~~create laravel package to auto generate keywords?!~~
+  [ ] work on config add in the admin panel a page for configaration can be key value table or something like this def lang , point price , ...
+  
+
+  [x] markdown to html in the view verifictaion
   
 
 

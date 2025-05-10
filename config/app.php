@@ -79,6 +79,7 @@ return [
     */
 
     'locale' => env('APP_LOCALE', 'en'),
+    'points_to_usd' => 0.01,
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 

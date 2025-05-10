@@ -6,7 +6,9 @@ use App;
 use App\Services\GeminiService;
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Http;
+use League\CommonMark\CommonMarkConverter;
 
 class UpdatedTranslation extends Model
 {
@@ -23,8 +25,8 @@ class UpdatedTranslation extends Model
         $response = $gemini->translate($this->value , $textLang, $userLang);
         // dd($this->value , $textLang, $userLang);
 
-      
-    return  $response;
+      $c = new CommonMarkConverter();
+    return  $c->convertToHtml($response);
     }
 
     public function language() {

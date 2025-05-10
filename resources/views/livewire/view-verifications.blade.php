@@ -18,7 +18,7 @@
                                 {{ optional($verification->updatedTranslation)->value ?? '' }}
                             </div>
                             <div class="text-sm text-red-500">
-                                {{ optional($verification->updatedTranslation)->translateToUserLang() ?? '' }}
+                                {!! optional($verification->updatedTranslation)->translateToUserLang() ?? '' !!}
                             </div>
                         @endif
 

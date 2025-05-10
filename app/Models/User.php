@@ -65,30 +65,30 @@ class User extends Authenticatable
         ];
     }
 
-    public function reservePoints($points,$save = true)
-    {
-        $this->points -= $points;
-        $this->reserved_points += $points;
-        if($save){
-            $this->save();
-        }
-    }
-    public function releaseReservedPoints($points , $save = true)
-    {
-        $this->points += $points;
-        $this->reserved_points -= $points;
-        if($save){
-            $this->save();
-        }
-    }
+    // public function reservePoints($points,$save = true)
+    // {
+    //     $this->points -= $points;
+    //     $this->reserved_points += $points;
+    //     if($save){
+    //         $this->save();
+    //     }
+    // }
+    // public function releaseReservedPoints($points , $save = true)
+    // {
+    //     $this->points += $points;
+    //     $this->reserved_points -= $points;
+    //     if($save){
+    //         $this->save();
+    //     }
+    // }
      
-    public function removeReservedPoints($points,$save =true)
-    {
-        $this->reserved_points -= $points;
-        if($save){
-            $this->save();
-        }
-    }
+    // public function removeReservedPoints($points,$save =true)
+    // {
+    //     $this->reserved_points -= $points;
+    //     if($save){
+    //         $this->save();
+    //     }
+    // }
 
     public function addPoints($points, $save = true)
     {
@@ -104,4 +104,8 @@ class User extends Authenticatable
             $this->save();
         }
     }
+
+    // public function pointsToUs(){
+    //     return $this->points / config('app.points_to_usd');
+    // }
 }

@@ -16,6 +16,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^3.6",
         "mcamara/laravel-localization": "^2.3",
+        "paypal/paypal-checkout-sdk": "^1.0",
         "saade/filament-fullcalendar": "^3.2"
     },
     "require-dev": {
