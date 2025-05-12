@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="bg-gray-100 mt-12 py-6 px-6">
+{{-- <footer class="bg-gray-100 mt-12 py-6 px-6">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
       <!-- Branding -->
       <div class="text-gray-700 font-semibold text-lg">
@@ -14,5 +14,10 @@
         <li><a href="/contact" class="hover:text-blue-600">Contact</a></li>
       </ul>
     </div>
+  </footer> --}}
+
+  <footer class="footer footer-center p-4 bg-base-200 text-base-content mt-16">
+    <p>© 2025 Treefy. Localize Smarter. Grow Faster.</p>
   </footer>
+  
   

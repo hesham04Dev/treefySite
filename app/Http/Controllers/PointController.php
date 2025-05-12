@@ -11,7 +11,8 @@ class PointController extends Controller
 {
     public function index()
     {
-        return view('points.index');
+        $user = auth()->user();
+        return view('points.index', compact('user'));
     }
 
     // 🟩 Form Pages
@@ -80,29 +81,57 @@ class PointController extends Controller
     }
 
     // 🟩 Sell Points
-    public function sellPoints(Request $request)
-    {
-        $points = (int) $request->input('points');
-        $user = auth()->user();
+    // public function sellPoints(Request $request)
+    // {
+    //     $points = (int) $request->input('points');
+    //     $user = auth()->user();
 
-        if ($points <= 0 || $points > $user->points) {
-            return redirect()->back()->with('error', 'Invalid points.');
-        }
+    //     if ($points <= 0 || $points > $user->points) {
+    //         return redirect()->back()->with('error', 'Invalid points.');
+    //     }
 
-        DB::transaction(function () use ($user, $points) {
-            $user->decrement('points', $points);
+    //     DB::transaction(function () use ($user, $points) {
+    //         $user->decrement('points', $points);
 
-            DB::table('transactions')->insert([
-                'debit_user_id' => $user->id,
-                'credit_user_id' => null,
-                'amount' => $points,
-                'transaction_type_id' => 2, // sell
-                'created_at' => now(),
-            ]);
-        });
+    //         DB::table('transactions')->insert([
+    //             'debit_user_id' => $user->id,
+    //             'credit_user_id' => null,
+    //             'amount' => $points,
+    //             'transaction_type_id' => 2, // sell
+    //             'created_at' => now(),
+    //         ]);
+    //     });
 
-        return redirect()->route('points.sell.form')->with('success', 'Sale request submitted successfully.');
+    //     return redirect()->route('points.sell.form')->with('success', 'Sale request submitted successfully.');
+    // }
+
+    public function sellPoints(Request $request, PayPalService $paypal)
+{
+    $points = (int) $request->input('points');
+    $user = auth()->user();
+
+    if ($points <= 0 || $points > $user->points) {
+        return redirect()->back()->with('error', 'Invalid points.');
     }
+
+    DB::transaction(function () use ($user, $points, $paypal) {
+        $user->decrement('points', $points);
+
+        DB::table('transactions')->insert([
+            'debit_user_id' => $user->id,
+            'credit_user_id' => null,
+            'amount' => $points,
+            'transaction_type_id' => 2, // sell
+            'created_at' => now(),
+        ]);
+
+        $usdAmount = $points * config('app.points_to_usd');
+        $paypal->sendPayout($user->email, $usdAmount, "Selling $points points");
+    });
+
+    return redirect()->route('points.sell.form')->with('success', 'Money sent to your PayPal!');
+}
+
 
     // 🟩 Transfer Points to Another User
     public function sendPoints(Request $request)
@@ -115,6 +144,9 @@ class PointController extends Controller
 
         if (!$receiver) {
             return redirect()->back()->with('error', 'Receiver not found.');
+        }
+        if($receiverEmail == $sender->email){
+            return redirect()->back()->with('error', 'You cannot send points to yourself.');
         }
 
         if ($points <= 0 || $points > $sender->points) {

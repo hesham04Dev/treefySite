@@ -3,6 +3,7 @@ $menu = [
   ["name" => "Dashboard", "href" => "/dashboard"],
   ["name" => "Profile", "href" => "/profile"],
   ["name" => "Projects", "href" => "/projects"],
+  ["name" => "Points", "href" => "/points"],
 ];
 
 if(Auth::check()){

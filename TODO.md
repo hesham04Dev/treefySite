@@ -196,7 +196,7 @@ publisher -> project manager
   [ ] work on users dashboard 
   [x] work on gitting the updated values in user lang
   [ ] check if add project delete the temp unzip or export also
-  [ ] purchase and withdraw
+  [x] purchase and withdraw using paypal
   [-] make the app support multi lang
   [ ] ~~create laravel package to auto generate keywords?!~~
   [ ] work on config add in the admin panel a page for configaration can be key value table or something like this def lang , point price , ...
@@ -213,3 +213,16 @@ publisher -> project manager
   [x] remove the disabled project from the project list
   [x] hide project that does not have translation for this translator
   [x] hide project if the user is banned
+
+
+
+
+
+
+
+
+  ## todo for 12/5
+  [ ] finish the design
+  [ ] build the points page
+  [ ] complete the multi lang support
+  
