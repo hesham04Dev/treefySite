@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div class="flex flex-col min-h-screen">
+    <div class="flex flex-col min-h-screen ">
         {{-- {{ __("home") }} --}}
        
 
@@ -22,8 +22,8 @@
             </div>
         @endif
 
-        <div class="flex-grow">
-            {{ $slot }}
+        <div {{ $attributes->merge(['class' => 'flex-grow p-2']) }}>
+            {{ $slot }} 
         </div>
 
         <x-parts.footer />

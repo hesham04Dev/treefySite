@@ -1,5 +1,5 @@
-<x-layouts.app>
-    <div class="bg-base-200 flex items-center justify-center min-h-screen p-4">
+<x-layouts.base class="flex items-center justify-center">
+    {{-- <div class="bg-base-200 flex items-center justify-center min-h-screen p-4"> --}}
         <div class="w-full max-w-md p-8 space-y-6 bg-base-100 rounded-2xl shadow-lg">
             <h1 class="text-3xl font-bold text-center">{{ __('Sign Up') }}</h1>
             
@@ -67,5 +67,5 @@
                 </button>
             </a>
         </div>
-    </div>
-</x-layouts.app>
+    {{-- </div> --}}
+</x-layouts.base>

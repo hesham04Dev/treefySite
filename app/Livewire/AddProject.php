@@ -75,7 +75,7 @@ class AddProject extends Component
                 'points_per_word' => $this->points_per_word,
                 'verification_no' => $this->verifications_per_word,
             ]);
-
+            if($this->zip_file != null){
             $tempPath = $this->zip_file->getRealPath();
             $extractPath = storage_path('app/extracted_' . uniqid());
 
@@ -126,7 +126,7 @@ class AddProject extends Component
                         ]
                     );
                 }
-            }
+            }}
 
             DB::commit();
 
@@ -174,7 +174,15 @@ class AddProject extends Component
         ]);
     
         $project = Project::findOrFail($this->projectId);
-    
+        
+        if($this->verifications_per_word == 1 && $project->verification_no >1){
+            // select first verification of each translation and mark as done
+            $translations = Translation::where('project_id', $project->id)->get();
+            $project->verifications();
+            // TODO
+        }
+
+
         $project->update([
             'name' => $this->project_name,
             'desc' => $this->project_description,

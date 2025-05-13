@@ -112,7 +112,7 @@ class Verification extends Component
         }
         $verifications = $this->getVerifications();
         if($this->project->points_per_word == count($verifications)){
-            if($this->allVerificationsSame()){
+            if($this->allVerificationsSame($verifications)){
                 if($verifications[0]->updatedTranslation){
                     $this->translation->value = $verifications[0]->updatedTranslation->value;
                 }

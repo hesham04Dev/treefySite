@@ -1,21 +1,21 @@
 <?php
 $menu = [
-  ["name" => "Dashboard", "href" => "/dashboard"],
-  ["name" => "Profile", "href" => "/profile"],
-  ["name" => "Projects", "href" => "/projects"],
-  ["name" => "Points", "href" => "/points"],
+  ["name" => __("Dashboard"), "href" => "/dashboard"],
+  ["name" => __("Profile"), "href" => "/profile"],
+  ["name" => __("Projects"), "href" => "/projects"],
+  ["name" => __("Points"), "href" => "/points"],
 ];
 
 if(Auth::check()){
   if(auth()->user()->isTranslator()){
-    $menu[] = ["name" => "Verification", "href" => route("verify")];
+    // $menu[] = ["name" => "Verification", "href" => route("verify")];
   }
-  $menu[] = ["name" => "Logout", "href" => "/logout"];
+  $menu[] = ["name" => __("Logout"), "href" => "/logout"];
   
 } else {
   // hide everything else
-  $menu= [["name" => "Login", "href" => "/login"],
-  ["name" => "Register", "href" => "/signup"]];
+  $menu= [["name" => __("Login"), "href" => "/login"],
+  ["name" => __("Register"), "href" => "/signup"]];
 }
 
 
@@ -32,9 +32,9 @@ if(Auth::check()){
 
 <!-- Menu (Desktop) -->
 <nav class="hidden md:block">
-  <ul class="flex space-x-6">
+  <ul class="flex ">
     @foreach ($menu as $item)
-    <li><a href="{{ $item["href"] }}" class="text-gray-700 hover:text-blue-600">{{$item['name']}}</a></li>
+    <li><a href="{{ $item["href"] }}" class="text-gray-700 hover:text-blue-600 mx-2">{{$item['name']}}</a></li>
   @endforeach
   </ul>
 </nav>

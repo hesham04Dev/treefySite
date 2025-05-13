@@ -13,7 +13,7 @@ class ProjectsList extends Component
     use WithPagination;
 
     public ?int $userId = null;
-    public ?int $limit = 2;
+    public ?int $limit = 10;
 
 
     protected $listeners = ['enroll', 'unEnroll', 'startVerification'];

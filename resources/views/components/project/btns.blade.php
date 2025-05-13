@@ -32,30 +32,32 @@
 
 
 {{-- resources/views/components/project/btns.blade.php --}}
-@props(['user' => auth()->user(), 'projectId' => null])
-
+@props(['user' => auth()->user(), 'project' => null])
+{{-- {{ dd($project) }} --}}
 <div class="flex items-center gap-2">
-    @if($user->ownProject($projectId))
-        <a href="{{ route('edit_project', $projectId) }}"
+    @if($user->ownProject($project->id))
+        <a href="{{ route('edit_project', $project->id) }}"
            class="btn btn-sm btn-warning">
             {{ __('Edit') }}
         </a>
-        <a href="{{ route('projectVerifications', $projectId) }}"
+        @if($project->verification_no >1)
+        <a href="{{ route('projectVerifications', $project->id) }}"
            class="btn btn-sm btn-outline">
             {{ __('View Verifications') }}
         </a>
+        @endif
     @elseif($user->isTranslator())
-        @if($user->translator->isEnrolled($projectId))
-            <button wire:click="unEnroll({{ $projectId }})"
+        @if($user->translator->isEnrolled($project->id))
+            <button wire:click="unEnroll({{ $project->id }})"
                     class="btn btn-sm btn-error text-white">
                 {{ __('Unenroll') }}
             </button>
-            <button wire:click="startVerification({{ $projectId }})"
+            <button wire:click="startVerification({{ $project->id }})"
                     class="btn btn-sm btn-success text-white">
                 {{ __('Verify') }}
             </button>
         @else
-            <button wire:click="enroll({{ $projectId }})"
+            <button wire:click="enroll({{ $project->id }})"
                     class="btn btn-sm btn-info text-white">
                 {{ __('Enroll') }}
             </button>

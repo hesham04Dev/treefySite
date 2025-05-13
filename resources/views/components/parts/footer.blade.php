@@ -17,7 +17,7 @@
   </footer> --}}
 
   <footer class="footer footer-center p-4 bg-base-200 text-base-content mt-16">
-    <p>© 2025 Treefy. Localize Smarter. Grow Faster.</p>
+    <p>© 2025 Treefy. {{__("treefy_slogan")}}</p>
   </footer>
   
   

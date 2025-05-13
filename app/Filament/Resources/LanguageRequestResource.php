@@ -21,6 +21,7 @@ class LanguageRequestResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
     public static function form(Form $form): Form
     {
         return $form
@@ -44,17 +45,11 @@ class LanguageRequestResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('translator_id')
+                Tables\Columns\TextColumn::make('translator.user.name')
+                ->label("Translator")
                     ->numeric()
                     ->sortable(),
-                // Tables\Columns\TextColumn::make('language_id')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('file_path')
-                //     ->searchable(),
-
-
-                TextColumn::make('language.name') // dot notation for relation
+                TextColumn::make('language.name') 
                 ->label('Language')
                 ->searchable()
                 ->wrap(),

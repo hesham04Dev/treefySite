@@ -23,14 +23,15 @@ class Project extends Model {
 
     public function getPercentage(){
 
-        $total = $this->translations()->where("skipped",'0',)->count();
+        $total = $this->translations()->count();
         $total *= $this->verification_no;
 
-        
-        $verified = $this->verifications()->count();
+        // if()
+        // $verified = $this->verifications()->count();
         // $verified = 0;
         // return "$total - $verified";
-        return($total > 0) ?  round(($verified / $total) * 100) : 0;
+        $done =  $this->translations()->where("skipped","1")->orWhere("is_done","1")->count();
+        return($total > 0) ?  round(($done / $total) * 100) : 0;
     }
 
     public function verifications(){

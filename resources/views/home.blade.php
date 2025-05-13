@@ -88,7 +88,7 @@
               {{ __("treefy_slogan") }}
             </h1>
             <p class="py-6 text-lg text-gray-600">{{ __("treefy_slogan_desc") }}</p>
-            <a href="#" class="btn btn-primary btn-lg">{{ __("get_started") }}</a>
+            <a href="{{ url("dashboard") }}" class="btn btn-primary btn-lg">{{ __("get_started") }}</a>
           </div>
         </div>
       </section>
@@ -157,12 +157,12 @@
         </div>
         
         <div class="text-center mt-12">
-          <button class="btn btn-primary px-8">Get Started</button>
+          <button class="btn btn-primary px-8"><a href="{{ url("dashboard") }}">Get Started</a></button>
         </div>
       </section>
 
   
-      <!-- FAQ Section -->
+      {{-- <!-- FAQ Section -->
       <section id="faq" class="py-20">
         <h2 class="text-3xl font-bold text-center mb-12">{{ __("f_a_q") }}</h2>
         <div class="max-w-2xl mx-auto space-y-4 px-4">
@@ -183,7 +183,7 @@
           @endforeach
         </div>
       </section>
-      
+       --}}
   
 
   </div>

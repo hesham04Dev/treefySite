@@ -1,39 +1,49 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100 p-4">
-    <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md text-center">
-        @if ($translation && $translation !=null)
-        <div wire:key="translation-{{ $translation->id }}">
-            <h3>project name: {{$project->name}}</h3>
-            <h2 class="text-xl font-bold text-gray-800 mb-4">{{ $translation->key }}</h2>
+{{-- <div class="flex justify-center items-center min-h-screen  p-4"> --}}
+    <div class="bg-base-100 rounded-xl shadow p-6 w-full max-w-md flex-center m-auto mt-2">
+        @if ($translation && $translation != null)
+            <div wire:key="translation-{{ $translation->id }}">
+                <h3 class="text-sm text-base-content mb-1">
+                    Project: <span class="font-semibold">{{ $project->name }}</span>
+                </h3>
 
-            <div class="mb-4">
-                <label class="block text-gray-600 text-sm mb-1">Language:</label>
-                <p class="text-blue-600 font-medium">{{ $translation->language }}</p>
-            </div>
+                <h2 class="text-xl font-bold text-base-content mb-4">
+                    {{ $translation->key }}
+                </h2>
 
-            <div class="mb-4">
-                <label class="block text-gray-600 text-sm mb-1">Translation:</label>
-                <input type="text"
-                    wire:model.defer="editableTranslation"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    placeholder="Edit the translation here" />
-            </div>
+                <div class="mb-4">
+                    <label class="label p-0 mb-1">
+                        <span class="label-text text-sm">Language</span>
+                    </label>
+                    <p class="text-sm text-neutral">{{ $translation->language }}</p>
+                </div>
 
-            <div class="flex justify-between mt-6">
-                <button wire:click="markAsCorrect({{ $translation->id }})"
-                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow">
-                    Done
-                </button>
-                <button wire:click="skip({{ $translation->id }})"
-                    class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow">
-                    Skip
-                </button>
+                <div class="mb-4">
+                    <label class="label p-0 mb-1">
+                        <span class="label-text text-sm">Translation</span>
+                    </label>
+                    <input type="text"
+                        wire:model.defer="editableTranslation"
+                        class="input input-bordered w-full text-sm"
+                        placeholder="Edit translation" />
+                </div>
+
+                <div class="flex justify-between gap-3 mt-6">
+                    <button wire:click="markAsCorrect({{ $translation->id }})"
+                        class="btn btn-sm btn-success w-1/2">
+                        {{ __("Done") }}
+                    </button>
+                    <button wire:click="skip({{ $translation->id }})"
+                        class="btn btn-sm btn-neutral w-1/2">
+                        {{ __("Skip") }}
+                    </button>
+                </div>
             </div>
-        </div>
         @else
-        <div wire:key="no-translation">
-            <p class="text-gray-600">No translations available for verification.</p>
-        </div>
+            <div wire:key="no-translation" class="flex items-center justify-center min-h-[50vh]">
+                <p class="">
+                    No translations available for verification.
+                </p>
+            </div>
         @endif
     </div>
-</div>
-
+{{-- </div> --}}

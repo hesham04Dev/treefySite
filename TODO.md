@@ -223,6 +223,19 @@ publisher -> project manager
 
   ## todo for 12/5
   [ ] finish the design
-  [ ] build the points page
-  [ ] complete the multi lang support
+  [x] build the points page
+  [-] complete the multi lang support
   
+
+  [ ] re works
+   x profile and trans profile 
+   x fill missing data
+ [x] prevent user from adding same name project
+ [x] add owner name before the name of the project or make the project name uniqe
+ [x] in need approve show trans name
+ [x] make the percentage on the skipped and done 
+ [ ] if the user set verifier t 1 then verification auto selected
+ [x] check approve add lang
+ [x] make the menu multi lang ,footer
+ [x] hide from btn view verification if project verification no ==1
+ [x] see why when edit project it dublicate in the db
