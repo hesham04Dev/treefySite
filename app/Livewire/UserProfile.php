@@ -46,7 +46,7 @@ class UserProfile extends Component
             'default_lang' => $this->default_lang,
         ]);
 
-        session()->flash('message', 'Profile updated successfully.'. App::getLocale());
+        session()->flash('message', __('done'));
     }
 
     public function updatePassword()
@@ -69,7 +69,7 @@ class UserProfile extends Component
         $this->oldPassword = null;
         $this->newPassword = null;
 
-        session()->flash('message', 'Password updated successfully.');
+        session()->flash('message', __('done'));
     }
 
     public function render()

@@ -54,7 +54,7 @@ class TranslatorProfile extends Component
         ]);
 
         $this->reset(['showRequestForm', 'requestLanguageId', 'requestReason', 'requestFile']);
-        session()->flash('message', 'Language request submitted successfully.');
+        session()->flash('message', __('done'));
     }
 
     public function loadLanguages()
@@ -76,7 +76,7 @@ class TranslatorProfile extends Component
     {
         if ($this->confirmingLanguageId) {
             Auth::user()->translator->languages()->detach($this->confirmingLanguageId);
-            session()->flash('message', 'Language removed successfully.');
+            session()->flash('message', __('done'));
             $this->confirmingLanguageId = null;
             $this->loadLanguages();
         }

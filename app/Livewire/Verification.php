@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\ActiveTranslation;
 use App\Models\Project;
+use App\Models\Translation;
 use App\Models\UpdatedTranslation;
 use App\Models\User;
 use Livewire\Component;
@@ -101,6 +102,7 @@ class Verification extends Component
 
     private function _setVerification($translationId)
     {
+        $this->translation = Translation::findOrFail($translationId);
         $verification = \App\Models\Verification::create([
             'translator_id' => auth()->user()->id,
             'translation_id' => $translationId,
@@ -117,6 +119,7 @@ class Verification extends Component
                     $this->translation->value = $verifications[0]->updatedTranslation->value;
                 }
                 $this->translation->is_done=1;
+                // dd($this->translation);
                 $this->translation->save();
             }
             
@@ -223,12 +226,12 @@ class Verification extends Component
         }else if($allIncorrect){
             $old = null;
             foreach($verifications as $verification){
+                if($verification->updatedTranslation){
                 if($old == null){
-                    $old = $verification->updatedTranslation->value;
-                }
+                    $old = $verification->updatedTranslation->value;}
                 else if($old != $verification->updatedTranslation->value){
                     return false;
-                }
+                }}
                 
             }
             return true;

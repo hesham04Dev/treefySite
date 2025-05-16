@@ -20,33 +20,33 @@ class AddProject extends Component
     public $zip_file;
     public $isEdit = false; // true when editing
     public $projectId = null;
-    public $project=null;
+    public $project = null;
     public $disableSubmit = false;
     public $project_name = null;
     public $project_description = null;
     public $points_per_word = null;
-    public $verifications_per_word =null;
+    public $verifications_per_word = null;
 
-    public $is_disabled =null;
+    public $is_disabled = null;
 
     public function mount()
     {
-            if($this->projectId) {
-                $this->project = Project::findOrFail($this->projectId);
+        if ($this->projectId) {
+            $this->project = Project::findOrFail($this->projectId);
 
-                if ($this->project) {
-                    $this->isEdit = true;
-                    $this->project_name = $this->project->name;
-                    $this->project_description = $this->project->desc;
-                    $this->points_per_word = $this->project->points_per_word;
-                    $this->verifications_per_word = $this->project->verification_no;
-                    $this->is_disabled = (bool) $this->project->is_disabled; 
-                }else{
-                    redirect()->route('dashboard')->with('error', 'Project not found.');
-                }
+            if ($this->project) {
+                $this->isEdit = true;
+                $this->project_name = $this->project->name;
+                $this->project_description = $this->project->desc;
+                $this->points_per_word = $this->project->points_per_word;
+                $this->verifications_per_word = $this->project->verification_no;
+                $this->is_disabled = (bool) $this->project->is_disabled;
+            } else {
+                redirect()->route('dashboard')->with('error', 'Project not found.');
             }
+        }
 
-            
+
 
     }
 
@@ -75,68 +75,70 @@ class AddProject extends Component
                 'points_per_word' => $this->points_per_word,
                 'verification_no' => $this->verifications_per_word,
             ]);
-            if($this->zip_file != null){
-            $tempPath = $this->zip_file->getRealPath();
-            $extractPath = storage_path('app/extracted_' . uniqid());
+            if ($this->zip_file != null) {
+                $tempPath = $this->zip_file->getRealPath();
+                $extractPath = storage_path('app/extracted_' . uniqid());
 
-            $zip = new ZipArchive;
-            if ($zip->open($tempPath) === TRUE) {
-                $zip->extractTo($extractPath);
-                $zip->close();
-            } else {
-                throw new \Exception('Failed to unzip file.');
-            }
-
-            $files = collect(File::allFiles($extractPath))
-                ->filter(fn($file) => str_ends_with($file->getFilename(), '.json'));
-
-            $verifiedKeys = [];
-            $translationsByLang = [];
-
-            foreach ($files as $file) {
-                $json = json_decode(file_get_contents($file->getRealPath()), true);
-                if (!$json || !is_array($json)) continue;
-
-                $name = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-
-                if ($name === 'verified_translations') {
-                    $verifiedKeys = $json;
+                $zip = new ZipArchive;
+                if ($zip->open($tempPath) === TRUE) {
+                    $zip->extractTo($extractPath);
+                    $zip->close();
                 } else {
-                    $translationsByLang[$name] = $json;
+                    throw new \Exception('Failed to unzip file.');
+                }
+
+                $files = collect(File::allFiles($extractPath))
+                    ->filter(fn($file) => str_ends_with($file->getFilename(), '.json'));
+
+                $verifiedKeys = [];
+                $translationsByLang = [];
+
+                foreach ($files as $file) {
+                    $json = json_decode(file_get_contents($file->getRealPath()), true);
+                    if (!$json || !is_array($json))
+                        continue;
+
+                    $name = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+
+                    if ($name === 'verified_translations') {
+                        $verifiedKeys = $json;
+                    } else {
+                        $translationsByLang[$name] = $json;
+                    }
+                }
+
+                foreach ($translationsByLang as $langCode => $pairs) {
+                    $language = Language::firstOrCreate(['code' => $langCode], ['name' => $langCode]);
+
+                    foreach ($pairs as $key => $value) {
+                        $translationKey = TranslationKey::firstOrCreate(['value' => $key]);
+
+                        $isSkipped = isset($verifiedKeys[$key]) && in_array($langCode, $verifiedKeys[$key]);
+
+                        Translation::updateOrCreate(
+                            [
+                                'key_id' => $translationKey->id,
+                                'language_id' => $language->id,
+                                'project_id' => $project->id,
+                            ],
+                            [
+                                'value' => $value,
+                                'skipped' => $isSkipped,
+                            ]
+                        );
+                    }
                 }
             }
-
-            foreach ($translationsByLang as $langCode => $pairs) {
-                $language = Language::firstOrCreate(['code' => $langCode], ['name' => $langCode]);
-
-                foreach ($pairs as $key => $value) {
-                    $translationKey = TranslationKey::firstOrCreate(['value' => $key]);
-
-                    $isSkipped = isset($verifiedKeys[$key]) && in_array($langCode, $verifiedKeys[$key]);
-
-                    Translation::updateOrCreate(
-                        [
-                            'key_id' => $translationKey->id,
-                            'language_id' => $language->id,
-                            'project_id' => $project->id,
-                        ],
-                        [
-                            'value' => $value,
-                            'skipped' => $isSkipped,
-                        ]
-                    );
-                }
-            }}
 
             DB::commit();
 
-            session()->flash('success', 'Import successful!');
+            session()->flash('success', __('import_successful'));
             $this->reset(['zip_file', 'project_name', 'project_description', 'points_per_word', 'verifications_per_word']);
 
         } catch (\Throwable $e) {
             DB::rollBack();
             logger()->error('Import failed: ' . $e->getMessage());
-            session()->flash('error', 'Import failed: ' . $e->getMessage());
+            session()->flash('error', __('import_failed') .": ". $e->getMessage());
         }
     }
 
@@ -172,15 +174,59 @@ class AddProject extends Component
             'zip_file' => 'nullable|file|mimes:zip|max:10240',
             'is_disabled' => 'nullable|boolean',
         ]);
-    
+
         $project = Project::findOrFail($this->projectId);
+
+        // if ($this->verifications_per_word == 1 && $project->verification_no > 1) {
+        //     $translations = Translation::where('project_id', $project->id)->get();
+        //     // $project->verifications();
+
+        //     foreach ($translations as $translation) {
+        //         // Get the first verification for each translation
+        //         $firstVerification = $translation->verifications()->first();
+
+        //         // If a verification exists, mark it as done
+        //         if ($firstVerification) {
+        //             $firstVerification->update([
+        //                 'is_selected' => 1, 
+        //             ]);
+
+        //             // Mark the translation as skipped
+        //             $translation->update([
+        //                 'is_done' => 1,
+        //             ]);
+        //         }
+        //     }
+        // }
+
+        if ($this->verifications_per_word == 1 && $project->verification_no > 1) {
+            // Get all first verifications for each translation in this project
+            $verifications = Verification::whereIn('translation_id', function ($query) use ($project) {
+                    $query->select('id')
+                        ->from('translations')
+                        ->where('project_id', $project->id);
+                })
+                ->with('translation')
+                ->orderBy('created_at') // make sure we get the first by time
+                ->get()
+                ->groupBy('translation_id')
+                ->map(fn($group) => $group->first());
         
-        if($this->verifications_per_word == 1 && $project->verification_no >1){
-            // select first verification of each translation and mark as done
-            $translations = Translation::where('project_id', $project->id)->get();
-            $project->verifications();
-            // TODO
+            foreach ($verifications as $verification) {
+                // Mark verification as selected
+                $verification->update([
+                    'is_selected' => 1,
+                ]);
+        
+                // Mark the translation as done
+                if ($verification->relationLoaded('translation') && $verification->translation) {
+                    $verification->translation->update([
+                        'is_done' => 1,
+                    ]);
+                }
+            }
         }
+        
 
 
         $project->update([
@@ -190,14 +236,14 @@ class AddProject extends Component
             'verification_no' => $this->verifications_per_word,
             'is_disabled' => $this->is_disabled,
         ]);
-    
+
         if ($this->zip_file) {
             DB::beginTransaction();
-    
+
             try {
                 $tempPath = $this->zip_file->getRealPath();
                 $extractPath = storage_path('app/extracted_' . uniqid());
-    
+
                 $zip = new ZipArchive;
                 if ($zip->open($tempPath) === TRUE) {
                     $zip->extractTo($extractPath);
@@ -205,41 +251,42 @@ class AddProject extends Component
                 } else {
                     throw new \Exception('Failed to unzip file.');
                 }
-    
+
                 $files = collect(File::allFiles($extractPath))
                     ->filter(fn($file) => str_ends_with($file->getFilename(), '.json'));
-    
+
                 $verifiedKeys = [];
                 $translationsByLang = [];
-    
+
                 foreach ($files as $file) {
                     $json = json_decode(file_get_contents($file->getRealPath()), true);
-                    if (!$json || !is_array($json)) continue;
-    
+                    if (!$json || !is_array($json))
+                        continue;
+
                     $name = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-    
+
                     if ($name === 'verified_translations') {
                         $verifiedKeys = $json;
                     } else {
                         $translationsByLang[$name] = $json;
                     }
                 }
-    
+
                 foreach ($translationsByLang as $langCode => $pairs) {
                     $language = Language::firstOrCreate(['code' => $langCode], ['name' => $langCode]);
-    
+
                     foreach ($pairs as $key => $value) {
                         $translationKey = TranslationKey::firstOrCreate(['value' => $key]);
-    
+
                         $isSkipped = isset($verifiedKeys[$key]) && in_array($langCode, $verifiedKeys[$key]);
-    
+
                         // Check if this translation already exists
                         $existing = Translation::where([
                             'key_id' => $translationKey->id,
                             'language_id' => $language->id,
                             'project_id' => $project->id,
                         ])->exists();
-    
+
                         if (!$existing) {
                             Translation::create([
                                 'key_id' => $translationKey->id,
@@ -251,24 +298,25 @@ class AddProject extends Component
                         }
                     }
                 }
-    
+
                 DB::commit();
-                session()->flash('success', 'Project updated and new translations added.');
+                session()->flash('success', __('done'));
                 redirect()->route('dashboard');
-    
+
             } catch (\Throwable $e) {
                 DB::rollBack();
                 logger()->error('Update failed: ' . $e->getMessage());
-                session()->flash('error', 'Update failed: ' . $e->getMessage());
+                session()->flash('error', __('failed') . ": " . $e->getMessage());
             }
         } else {
-            session()->flash('success', 'Project updated successfully (no new translations).');
+            session()->flash('success', __("done"));
             redirect()->route('dashboard');
         }
     }
-    
 
-    public function export(){
+
+    public function export()
+    {
         $project = Project::findOrFail($this->projectId);
 
         $translations = Translation::where('project_id', $project->id)->get();

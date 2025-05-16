@@ -25,7 +25,7 @@
                 
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">{{__('email')}}</span>
+                        <span class="label-text">{{__('Language')}}</span>
                     </label>
                     <select wire:model="default_lang" class="select select-bordered w-full">
                         <option disabled selected></option>
@@ -63,7 +63,7 @@
                 </div>
                 
                 <div class="card-actions justify-end mt-4">
-                    <button type="submit" class="btn btn-primary">{{__("Update")}}</button>
+                    <button type="submit" class="btn btn-primary">{{__("save")}}</button>
                 </div>
             </div>
         </form>

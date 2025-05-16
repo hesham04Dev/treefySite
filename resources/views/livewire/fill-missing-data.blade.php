@@ -8,7 +8,7 @@
     @else
         <div class="card bg-base-100 shadow-lg">
             <div class="card-body">
-                <h2 class="card-title text-2xl mb-6">{{ __('Translator Profile Setup') }}</h2>
+                <h2 class="card-title text-2xl mb-6">{{ __('profile_info') }}</h2>
                 
                 <form wire:submit.prevent="save" class="space-y-6">
                     {{-- CV Upload --}}
@@ -32,11 +32,11 @@
                     {{-- Description --}}
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">{{ __('Professional Description') }}</span>
+                            <span class="label-text">{{ __('Description') }}</span>
                         </label>
                         <textarea wire:model="desc" 
                                   class="textarea textarea-bordered h-32" 
-                                  placeholder="{{ __('Tell us about your translation experience and qualifications...') }}"></textarea>
+                                  ></textarea>
                         @error('desc') 
                             <div class="alert alert-error mt-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
@@ -50,8 +50,8 @@
                     {{-- Preferred Languages --}}
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">{{ __('Select Your Preferred Languages') }}</span>
-                            <span class="label-text-alt">{{ __('Hold Ctrl/Cmd to select multiple') }}</span>
+                            <span class="label-text">{{ __('your_languages') }}</span>
+                            <span class="label-text-alt">{{ __('Hold_Ctrl/Cmd_to_select_multiple') }}</span>
                         </label>
                         <select wire:model="selectedLanguages" 
                                 class="select select-bordered w-full h-auto min-h-[3rem]" 
@@ -78,7 +78,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                             </svg>
-                            {{ __('Save Profile') }}
+                            {{ __('save') }}
                         </button>
                     </div>
                 </form>

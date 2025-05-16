@@ -12,14 +12,14 @@
 
                 <div class="mb-4">
                     <label class="label p-0 mb-1">
-                        <span class="label-text text-sm">Language</span>
+                        <span class="label-text text-sm">{{__('Language')}}</span>
                     </label>
                     <p class="text-sm text-neutral">{{ $translation->language }}</p>
                 </div>
 
                 <div class="mb-4">
                     <label class="label p-0 mb-1">
-                        <span class="label-text text-sm">Translation</span>
+                        <span class="label-text text-sm">{{ __('translation') }}</span>
                     </label>
                     <input type="text"
                         wire:model.defer="editableTranslation"
@@ -41,7 +41,7 @@
         @else
             <div wire:key="no-translation" class="flex items-center justify-center min-h-[50vh]">
                 <p class="">
-                    No translations available for verification.
+                   {{ __('no_translations') }} 
                 </p>
             </div>
         @endif

@@ -147,7 +147,7 @@
                 <span class="label-text">{{ __('Upload ZIP File') }}</span>
             </label>
             <input type="file" wire:model="zip_file" id="zip_file" accept=".zip"
-                   class="file-input file-input-bordered w-full" />
+                   class="file-input file-input-bordered w-full"  />
             @error('zip_file') <span class="text-sm text-red-500">{{ $message }}</span> @enderror
         </div>
 

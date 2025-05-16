@@ -22,14 +22,14 @@ class ProjectsList extends Component
     {
         // enroll logic here
         auth()->user()->translator->enrolledProjects()->attach($projectId);
-        session()->flash('success', 'Enrolled in project successfully.');
+        session()->flash('success', __('done'));
     }
 
     public function unEnroll($projectId)
     {
         // unenroll logic
         auth()->user()->translator->enrolledProjects()->detach($projectId);
-        session()->flash('success', 'Unenrolled from project successfully.');
+        session()->flash('success', __('done'));
     }
 
     public function startVerification($projectId)
@@ -41,14 +41,14 @@ class ProjectsList extends Component
     public function render()
     {
         $data = [];
-        $data["title"] = "All Projects";
+        $data["title"] = __("all_projects");
         $projectsQuery = Project::query();
 
         if ($this->userId) {
             $user = User::find($this->userId);
 
             if ($user?->isTranslator()) {
-                $data["title"] = "Enrolled Projects";
+                $data["title"] = __("enrolled_projects");
                 $data["href"] = "/projects";
                 // $projectsQuery = $user->translator->enrolledProjects();
 
@@ -56,7 +56,7 @@ class ProjectsList extends Component
                     ->select('p.id')
                     ->distinct());
             } else {
-                $title = "Your Projects";
+                $title = __("your_projects");
                 $data["href"] = "/add_project";
                 $projectsQuery = $user->projects();
                 $projectsQuery = $projectsQuery

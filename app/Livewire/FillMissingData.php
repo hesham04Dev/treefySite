@@ -30,7 +30,7 @@ class FillMissingData extends Component
     public function save()
     {   
         if ($this->is_translator === null) {
-            session()->flash('error', 'Please select if you are a translator or not.');
+            session()->flash('error', __('please_are_a_translator.'));
             return;
         }
         if($this->is_translator){
@@ -53,7 +53,7 @@ class FillMissingData extends Component
         $translator->languages()->sync($this->selectedLanguages);}
         $this->user->is_new_user = false;
         $this->user->save();
-        session()->flash('success', 'Translator profile created successfully.');
+        session()->flash('success', __("done"));
         return redirect()->route('dashboard');
     }
     public function saveUser(){
