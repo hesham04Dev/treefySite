@@ -57,13 +57,13 @@ class AddProject extends Component
 
     public function import()
     {
-        // $this->validate([
-        //     'project_name' => 'required|string|max:255',
-        //     'project_description' => 'nullable|string|max:1000',
-        //     'points_per_word' => 'required|integer|min:0',
-        //     'verifications_per_word' => 'required|integer|min:0',
-        //     'zip_file' => 'required|file|mimes:zip|max:10240',
-        // ]);
+        $this->validate([
+            'project_name' => 'required|string|max:255',
+            'project_description' => 'nullable|string|max:1000',
+            'points_per_word' => 'required|integer|min:0',
+            'verifications_per_word' => 'required|integer|min:0',
+            'zip_file' => 'required|file|mimes:zip|max:10240',
+        ]);
 
         DB::beginTransaction();
 
@@ -201,7 +201,7 @@ class AddProject extends Component
 
         if ($this->verifications_per_word == 1 && $project->verification_no > 1) {
             // Get all first verifications for each translation in this project
-            $verifications = Verification::whereIn('translation_id', function ($query) use ($project) {
+            $verifications =  \App\Models\Verification::whereIn('translation_id', function ($query) use ($project) {
                     $query->select('id')
                         ->from('translations')
                         ->where('project_id', $project->id);

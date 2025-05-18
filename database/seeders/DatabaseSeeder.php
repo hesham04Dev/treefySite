@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call(LanguageSeeder::class);
+        $this->call(Transaction_typesSeeder::class);
         // User::factory()->create([
         //     'name' => 'Hisham Admin',
         //     'email' => 'hesham04.devl@example.com',

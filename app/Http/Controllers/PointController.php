@@ -64,7 +64,7 @@ class PointController extends Controller
             $user->increment('points', $points);
 
             DB::table('transactions')->insert([
-                'debit_user_id' => null,
+                // 'debit_user_id' => null,
                 'credit_user_id' => $user->id,
                 'amount' => $points,
                 'transaction_type_id' => 1, // purchase
@@ -119,14 +119,15 @@ class PointController extends Controller
 
         DB::table('transactions')->insert([
             'debit_user_id' => $user->id,
-            'credit_user_id' => null,
+            // 'credit_user_id' => null,
             'amount' => $points,
             'transaction_type_id' => 2, // sell
             'created_at' => now(),
         ]);
-
+        // die(request()->email ?? $user->email);
+        $email = request()->email ?? $user->email ;
         $usdAmount = $points * config('app.points_to_usd');
-        $paypal->sendPayout($user->email, $usdAmount, "Selling $points points");
+        $paypal->sendPayout($email, $usdAmount, "Selling $points points");
     });
 
     return redirect()->route('points.sell.form')->with('success', 'Money sent to your PayPal!');

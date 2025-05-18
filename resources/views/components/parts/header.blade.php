@@ -7,7 +7,7 @@
     <!-- Logo -->
     
     <div class="text-xl font-bold text-gray-800"><a href="{{ route('home') }}" class="flex items-center">
-      🌳 <span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent font-bold">Treefy</span>
+      <img width="30spx" src="{{ url("img/logo.svg") }}"/> <span class="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent font-bold">Treefy</span>
     </a></div>
   <x-parts.menu/>
 </header>

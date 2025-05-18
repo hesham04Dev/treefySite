@@ -1,28 +1,28 @@
 - [x] create sign in page ( translator, user)
 - [x] sign in with google
-- [ ] create home page
-- [ ] complete the ap
+- [x] create home page
+- [x] complete the ap
 - [x]  make the tables for user, translator
 - [x]  add sign up page and method 
-- [ ]  prevent non admin from sign in to the ap
+- [x]  prevent non admin from sign in to the ap
 - [x]  create the key pages that shows the keys with the translations that uses this key
 
 - [x] create a method that give key_id or insert it for inserting in project
 - [x] create the method that get json and insert to database
-- [ ] create the method that get data from db and create json
+- [x] create the method that get data from db and create json
 
-- [ ] works on creating new project
-- [ ] works on acc new Translators
+- [x] works on creating new project
+- [x] works on acc new Translators
 
-- [ ] works on image verification methodology
-- [-] works on verification page
+- [ ] ~~works on image verification methodology~~
+- [x] works on verification page
 
-- [ ] works on acc verification page (user select the verification that need (multi verification)) or by add third verifier that checks the conflict
+- [x] works on acc verification page (user select the verification that need (multi verification)) or by add third verifier that checks the conflict
 
-- [ ] works on adding points and selecting points from user
-- [ ] works on getting money from points (translators)
+- [x] works on adding points and selecting points from user
+- [x] works on getting money from points (translators)
 
-- [-] works on dashboard ap and user dashboard
+- [x] works on dashboard ap and user dashboard
 
 - [ ] ~~fix user (dont show the translators)~~
 - [ ] ~~~~fix in user show of password~~
@@ -30,27 +30,27 @@
 - [ ] replace id but select in ap
 - [x] change the icon of the pages
 - [x] add google sign in
-- [ ] show error in sign in and signup make them filament page and use livewire
+- [x] show error in sign in and signup make them filament page and use livewire
 
-- [ ] improve the fill missing data design and add btn that ask are you Translator ? yes no
+- [x] improve the fill missing data design and add btn that ask are you Translator ? yes no
 - [x] create site header and footer
 - [x] see how to hide filament pages from the ap
 
-- [ ] create level helper this fn give the next level value it do a it get max points to this level and get the next level and the percent of the current level
-- [ ] update the image verification add new table related keys
+- [ ] ~~create level helper this fn give the next level value it do a it get max points to this level and get the next level and the percent of the current level~~
+- [ ] ~~update the image verification add new table related keys~~
 - [x] check durationg component 
-- [ ] add transaction table
-- [ ] add send points page
+- [x] add transaction table
+- [x] add send points page
 
-- [ ] in projects make the translator views his projects or enrolled projects in a tabs or ?
-- [ ] add login and logout to nav
+- [ ] ~~in projects make the translator views his projects or enrolled projects in a tabs or ?~~
+- [x] add login and logout to nav
 
-- [ ] in translation verification make sure to -- the active translations 
-- [ ] in translation verification make sure to -- when the user dont make any action in 5 minutes !!
+- [x] in translation verification make sure to -- the active translations 
+- [x] in translation verification make sure to -- when the user dont make any action in 5 minutes !!
 - [x] multi verification at same time
 - [x] enable editing in verification
-- [ ] show multi lang in verirication page
-- [ ] works on getting points from the user take points for each words so we need to edit the query if project is normal so we need to check if the user have points for each one
+- [ ] ~~show multi lang in verirication page~~
+- [x] works on getting points from the user take points for each words so we need to edit the query if project is normal so we need to check if the user have points for each one
 - [ ] 
 Publisher  , Translator
 publisher -> project manager
@@ -63,7 +63,7 @@ publisher -> project manager
  [x] add login/ logout 
 
 ## project list
-[ ] add search
+[ ] ~~add search~~
 
 ## Dashboard
  ### Admin Dashboard
@@ -73,11 +73,11 @@ publisher -> project manager
     [x] add accept language update
     [ ] 
  ### project_manager dashboard
-    [ ] works on design 
-    [ ] improve pagination design
+    [x] works on design 
+    [x] improve pagination design
  ### translator dashboard
-    [ ] works on design 
-    [ ] improve pagination design
+    [x] works on design 
+    [x] improve pagination design
 
 ## User
  [x] add default lang
@@ -87,30 +87,30 @@ publisher -> project manager
 
 
 ## Main Pages
-    [ ] build home page like longchain 
-    [ ] build terms and conditions
-    [ ] build about us page
+    [-] build home page like longchain 
+    [ ]~~ build terms and conditions~~
+    [ ] ~~build about us page~~
     [x] build profile page
     [x] build projects page (translator can enroll)
 
 ## Main fixes
     [x] fix footer always in bottom
-    [ ] fix footer content
+    [x] fix footer content
     [x] why there is lag (error in pagination)
-    [ ] make the % according on the skipped and un fineshid
+    [x] make the % according on the skipped and un fineshid
 
 
 ## Main add
-    [ ] allow translator to add projects
-    [ ] add transaction table for points
-    [ ] logo and design
+    [ ] ~~allow translator to add projects~~
+    [x] add transaction table for points
+    [x] logo and design
     
 
 
 ## Verification Page
     [x] add points to verifier
     [ ] ~~add level to verifier~~
-    [ ] shows more than one lang 
+    [ ] ~~shows more than one lang ~~
     [x] update the query remove projects where the user dont have enogh points
     [x] case study (multi project with small amount of money what happens?)
     [x] make when click in a project that enrolled to get trans of this project
@@ -123,17 +123,17 @@ publisher -> project manager
 
 
 ## Add Project
-    [ ] improve the design 
+    [x] improve the design 
     [x] if lang not found add it
     [x] add edit to project
     [x] add new keys 
     [x] add btn to stop project add it in db and update query
     [ ] ~~make the admin able to disable a project and user cant un disable it~~
     [x] make the user able to extract project
-    [ ] add toast success or faild in add update..
+    [x] add toast success or faild in add update..
 
 ## profile page
-    [ ] when translator update his translations we need to verify them 
+    [x] when translator update his translations we need to verify them 
     or add request add lang
 
 
@@ -151,8 +151,8 @@ publisher -> project manager
     and make it done
 
 ## billing page
-    [ ] do resarsh how to integrate payment method in the app
-    [ ] purchase points and withdraw points
+    [x] do resarsh how to integrate payment method in the app
+    [x] purchase points and withdraw points
 
 
 
@@ -180,7 +180,7 @@ publisher -> project manager
  [x] add the ali's pages
  [x] make edit project page
  [x] make the user able to extract data
- [ ] works on dashboards
+ [x] works on dashboards
  [x] fix this make the dashboard show only the project that have translation to verify
 
  ## next week 
@@ -192,14 +192,14 @@ publisher -> project manager
   [x] work on profile and request new lang or remove lang
   [x] work on admin panel add accept add new lang 
   [x] add default lang to the user in signup (in the dashboard or something)
-  [ ] show btn in the menu  to choose a lang (not important)
-  [ ] work on users dashboard 
+  [ ] ~~show btn in the menu  to choose a lang (not important)~~
+  [x] work on users dashboard 
   [x] work on gitting the updated values in user lang
-  [ ] check if add project delete the temp unzip or export also
+  [ ] ~~check if add project delete the temp unzip or export also~~
   [x] purchase and withdraw using paypal
-  [-] make the app support multi lang
+  [x] make the app support multi lang
   [ ] ~~create laravel package to auto generate keywords?!~~
-  [ ] work on config add in the admin panel a page for configaration can be key value table or something like this def lang , point price , ...
+  [ ] ~~work on config add in the admin panel a page for configaration can be key value table or something like this def lang , point price , ...~~
   
 
   [x] markdown to html in the view verifictaion
@@ -222,12 +222,12 @@ publisher -> project manager
 
 
   ## todo for 12/5
-  [ ] finish the design
+  [x] finish the design
   [x] build the points page
-  [-] complete the multi lang support
+  [x] complete the multi lang support
   
 
-  [ ] re works
+  [x] re works
    x profile and trans profile 
    x fill missing data
  [x] prevent user from adding same name project
@@ -239,6 +239,12 @@ publisher -> project manager
  [x] make the menu multi lang ,footer
  [x] hide from btn view verification if project verification no ==1
  [x] see why when edit project it dublicate in the db
- [ ] check the percentage error 
+ [x] check the percentage error 
  [x] finish all translations (multi lang support)
- [ ] add logo
+ [x] add logo
+
+ [x] fix the all same or why there is no veiw verification auto done
+ [x] fix the paypal refund 
+ [x] remove the un worked part from the translator
+
+ [ ] check the max point is checked in the request

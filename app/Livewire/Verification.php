@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Translation;
 use App\Models\UpdatedTranslation;
 use App\Models\User;
+use DB;
 use Livewire\Component;
 use function Aws\load_compiled_json;
 class Verification extends Component
@@ -190,7 +191,13 @@ class Verification extends Component
         if ($this->project->points_per_word > 0) {
             $this->user->addPoints($this->project->points_per_word);
             $this->projectOwner->removePoints($this->project->points_per_word);
-
+            DB::table('transactions')->insert([
+                'debit_user_id' => $this->projectOwner->id,
+                'credit_user_id' => $this->user->id,
+                'amount' => $this->project->points_per_word,
+                'transaction_type_id' => 4, // verification
+                'created_at' => now(),
+            ]);
             // $transaction = 
             // 
 

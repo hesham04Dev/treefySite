@@ -113,7 +113,7 @@ class TranslatorResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\LanguageRequestRelationManager::class,
+            // RelationManagers\LanguageRequestRelationManager::class,
         ];
     }
 

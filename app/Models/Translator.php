@@ -70,7 +70,8 @@ public function getTranslationsForVerify($withSelect=true)
              ->where('pt.translator_id', '=', $this->user_id);
     })
     ->where('u.is_banned', 0)
-    ->where('t.skipped', 0);
+    ->where('t.skipped', 0)
+    ->where('t.is_done', 0);
 
 
     $this->applyActiveProjectsFilter($query);
